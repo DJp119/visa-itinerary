@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "country": {
+      "type": "string"
+    },
+    "countryCode": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2
+    },
+    "rank": {
+      "type": "number"
+    },
+    "score": {
+      "type": "number"
+    },
+    "visaFreeCount": {
+      "type": "number"
+    },
+    "visaOnArrivalCount": {
+      "type": "number"
+    },
+    "eVisaCount": {
+      "type": "number"
+    },
+    "visaRequiredCount": {
+      "type": "number"
+    },
+    "HenleyIndex": {
+      "type": "number"
+    },
+    "noindex": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "country",
+    "countryCode",
+    "rank",
+    "score",
+    "visaFreeCount",
+    "visaOnArrivalCount",
+    "eVisaCount",
+    "visaRequiredCount"
+  ]
+}

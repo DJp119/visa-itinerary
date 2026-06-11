@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "handle": {
+      "type": "string"
+    },
+    "avatar": {
+      "type": "string",
+      "format": "uri"
+    },
+    "text": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "sourceUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "date": {
+      "type": "string"
+    },
+    "likes": {
+      "default": 0,
+      "type": "number"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "handle",
+    "text",
+    "date"
+  ]
+}

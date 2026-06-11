@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "country": {
+      "type": "string"
+    },
+    "countryCode": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2
+    },
+    "visaType": {
+      "type": "string",
+      "enum": [
+        "tourist",
+        "transit",
+        "digital-nomad",
+        "business",
+        "student"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "lastUpdated": {
+      "type": "string"
+    },
+    "maxStay": {
+      "type": "string"
+    },
+    "validity": {
+      "type": "string"
+    },
+    "processingTime": {
+      "type": "string"
+    },
+    "fee": {
+      "type": "string"
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "applicationUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "officialUrl": {
+      "type": "string",
+      "format": "uri"
+    },
+    "travelAdvice": {
+      "type": "string"
+    },
+    "nearbyCountries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "noindex": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "country",
+    "countryCode",
+    "visaType",
+    "title",
+    "description",
+    "lastUpdated"
+  ]
+}
