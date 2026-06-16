@@ -141,3 +141,15 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+/.agent/.agents/plugins
+/.agent/.agents/plugins
+/.agent/.agents/skills/agent-introspection-debugging/agents
+/.agent/.agents/skills/agent-introspection-debugging
+/.agent/.agents/skills/agent-sort/agents
+/.agent/.agents/skills/api-design/agents
+/.agent/.agents/skills/api-design
+/.agent/.agents/skills/article-writing
+.agent/.agents/skills/backend-patterns/agents/openai.yaml
+*.md
+*.yaml
+/.agent
