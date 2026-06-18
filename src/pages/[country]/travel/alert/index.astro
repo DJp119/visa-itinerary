@@ -1,0 +1,90 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { TravelAlert } from '@/lib/schemas/travel';
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureTravelRepository } from '@/data/repositories/travelRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country }
+  }));
+}
+
+// Get country and travel alert data
+export async function get(props: { params: { country: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const travelRepo = new FixtureTravelRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        travelAlert: null
+      }
+    };
+  }
+
+  // Get travel alert data for this country
+  const travelAlertData = await travelRepo.getTravelAlertByCountryId(countryData.id);
+
+  return {
+    props: {
+      country: countryData,
+      travelAlert: travelAlertData
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle={`Travel Alerts for ${props.country?.name}`}
+  pageDescription=`Important travel alerts and warnings for ${props.country?.name}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country?.name || 'Country', href: `/${props.country?.slug}` },
+        { label: 'Travel Guide', href: `/${props.country?.slug}/travel` },
+        { label: 'Travel Alerts', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Travel Alerts for ${props.country?.name}`}
+      description={`Important safety and security information for visiting ${props.country?.name}`}
+    >
+      {props.travelAlert && (
+        <>
+          <p class="text-lg text-foreground/60 mb-8">
+            {props.travelAlert.description}
+          </p>
+
+          {props.travelAlert.content && (
+            <div class="prose prose-lg max-w-none">
+              {props.travelAlert.content}
+            </div>
+          )}
+        </>
+      )}
+
+      {!props.travelAlert && (
+        <p class="text-lg text-foreground/60 mb-8">
+          No current travel alerts for {props.country?.name}.
+        </p>
+      )}
+    </SectionHeader>
+  </Container>
+</SiteLayout>

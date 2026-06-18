@@ -1,0 +1,79 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { VisaRequirement } from '@/lib/schemas/visa';
+
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureVisaRepository } from '@/data/repositories/visaRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country }
+  }));
+}
+
+// Get country and visa data
+export async function get(props: { params: { country: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const visaRepo = new FixtureVisaRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        visaRequirements: []
+      }
+    };
+  }
+
+  // Get transit visa requirements for this destination country
+  const visaRequirements = await visaRepo.getVisaRequirementsByDestination(countryData.id);
+
+  // Filter to only transit visas for this page
+  const transitVisaRequirements = visaRequirements.filter(
+    req => req.kind === 'transit'
+  );
+
+  return {
+    props: {
+      country: countryData,
+      visaRequirements: transitVisaRequirements
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle={`Transit Visas for ${props.country.name}`}
+  pageDescription=`Find transit visa requirements for ${props.country.name} based on your passport.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country.name, href: `/${props.country.slug}` },
+        { label: 'Transit Visas', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Transit Visas for ${props.country.name}`}
+      description=`Find out what visa you need to transit through ${props.country.name}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Select your passport country to see the visa requirements for transiting through
+        {props.country.name} (typically for layovers or connecting flights).
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

@@ -1,0 +1,264 @@
+[
+  {
+    "id": "us-visa-policy",
+    "countryId": "usa",
+    "title": "United States Visa Policy",
+    "description": "Official visa policy and immigration regulations for the United States of America.",
+    "content": "The United States maintains a complex visa system that categorizes visitors based on their purpose of travel. The policy outlines requirements for various visa types, visa waiver programs, and immigration procedures.",
+    "entryRequirements": [
+      {
+        "title": "General Entry Requirements",
+        "description": "All visitors to the United States must meet basic entry requirements regardless of visa type.",
+        "requirements": [
+          "Valid passport with at least six months validity beyond intended stay",
+          "Completed visa application (if required)",
+          "Payment of applicable fees",
+          "Clear intent to depart the US at the end of authorized stay"
+        ],
+        "documents": [
+          "Passport",
+          "Visa (if required)",
+          "Form I-94 Arrival/Departure Record",
+          "Customs Declaration Form"
+        ]
+      }
+    ],
+    "visaTypes": [
+      {
+        "type": "tourist (B-2)",
+        "description": "For tourism, vacation, visiting family/friends, or medical treatment",
+        "requirements": [
+          "Proof of residence abroad",
+          "Evidence of strong ties to home country",
+          "Proof of sufficient funds for stay",
+          "Detailed itinerary of planned activities"
+        ],
+        "process": [
+          "Complete online visa application (DS-160)",
+          "Schedule visa interview at US Embassy/Consulate",
+          "Attend visa interview",
+          "Wait for visa processing"
+        ],
+        "fees": [
+          {
+            "amount": 185,
+            "currencyCode": "USD",
+            "description": "Application fee"
+          }
+        ],
+        "processingTime": {
+          "min": 3,
+          "max": 90
+        }
+      },
+      {
+        "type": "business (B-1)",
+        "description": "For business consultations, conferences, estate settlement, or negotiating contracts",
+        "requirements": [
+          "Letter from employer detailing purpose of trip",
+          "Proof of business ties to home country",
+          "Evidence of sufficient funds",
+          "Invitation from US-based company (if applicable)"
+        ],
+        "process": [
+          "Complete online visa application (DS-160)",
+          "Schedule visa interview at US Embassy/Consulate",
+          "Attend visa interview",
+          "Wait for visa processing"
+        ],
+        "fees": [
+          {
+            "amount": 185,
+            "currencyCode": "USD",
+            "description": "Application fee"
+          }
+        ],
+        "processingTime": {
+          "min": 3,
+          "max": 90
+        }
+      },
+      {
+        "type": "student (F-1/M-1)",
+        "description": "For academic studies or vocational training",
+        "requirements": [
+          "Acceptance from SEVP-certified school",
+          "Proof of financial support for entire stay",
+          "Proof of residence abroad",
+          "Completed Form I-20 from school"
+        ],
+        "process": [
+          "Receive Form I-20 from SEVP-certified school",
+          "Pay SEVIS I-901 fee",
+          "Complete online visa application (DS-160)",
+          "Schedule and attend visa interview",
+          "Receive visa and travel to US"
+        ],
+        "fees": [
+          {
+            "amount": 185,
+            "currencyCode": "USD",
+            "description": "Application fee"
+          },
+          {
+            "amount": 350,
+            "currencyCode": "USD",
+            "description": "SEVIS I-901 fee"
+          }
+        ],
+        "processingTime": {
+          "min": 5,
+          "max": 120
+        }
+      }
+    ],
+    "immigrationRules": [
+      {
+        "title": "Visa Waiver Program (VWP)",
+        "description": "Citizens of participating countries may travel to the US for tourism or business for stays of 90 days or less without obtaining a visa.",
+        "rules": [
+          "Must hold valid e-passport with electronic chip",
+          "Must have approved ESTA authorization prior to travel",
+          "Stay limited to 90 days per visit",
+          "Not extendable or convertible to another visa status",
+          "Must travel with approved carrier (if arriving by air or sea)"
+        ]
+      },
+      {
+        "title": "Length of Stay Extensions",
+        "description": "Procedures for extending authorized stay in the United States.",
+        "rules": [
+          "Must file extension request before current authorized stay expires",
+          "Must maintain valid nonimmigrant status",
+          "Must not have violated terms of admission",
+          "Extension granted at discretion of USCIS"
+        ]
+      }
+    ],
+    "visaFreeCountries": [
+      "gb", "de", "fr", "jp", "kr", "au", "nz", "sg", "nl", "be",
+      "ch", "at", "se", "no", "dk", "fi", "ie", "es", "it", "pt"
+    ],
+    "visaOnArrivalCountries": [],
+    "electronicTravelAuthorization": true,
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://travel.state.gov",
+    "confidence": "official"
+  },
+  {
+    "id": "ca-visa-policy",
+    "countryId": "can",
+    "title": "Canada Visa Policy",
+    "description": "Official visa policy and immigration regulations for Canada.",
+    "content": "Canada offers various visa programs for tourists, students, workers, and immigrants. The policy includes information about visitor visas, study permits, work permits, and permanent residence pathways.",
+    "entryRequirements": [
+      {
+        "title": "General Entry Requirements",
+        "description": "Basic requirements for entering Canada as a temporary resident.",
+        "requirements": [
+          "Valid travel document (passport)",
+          "Good health",
+          "No criminal or immigration-related convictions",
+          "Proof of ties to home country",
+          "Proof that you will leave Canada at the end of your visit",
+          "Proof of sufficient funds for your stay"
+        ],
+        "documents": [
+          "Valid passport",
+          "Visa (if required)",
+          "Proof of financial support",
+          "Letter of invitation (if applicable)"
+        ]
+      }
+    ],
+    "visaTypes": [
+      {
+        "type": "tourist (Temporary Resident Visa)",
+        "description": "For tourism, visiting family/friends, or short-term studies (less than 6 months)",
+        "requirements": [
+          "Proof of ties to home country",
+          "Proof of sufficient funds for stay",
+          "Letter of invitation from Canadian host (if applicable)",
+          "Purpose of trip explanation"
+        ],
+        "process": [
+          "Determine if you need a visa",
+          "Complete application package",
+          "Pay processing fees",
+          "Submit application to Visa Application Centre",
+          "Provide biometrics (if required)",
+          "Wait for processing"
+        ],
+        "fees": [
+          {
+            "amount": 100,
+            "currencyCode": "CAD",
+            "description": "Processing fee per person"
+          }
+        ],
+        "processingTime": {
+          "min": 8,
+          "max": 90
+        }
+      },
+      {
+        "type": "study permit",
+        "description": "For academic, professional, or vocational training at designated learning institutions",
+        "requirements": [
+          "Letter of acceptance from designated learning institution",
+          "Proof of sufficient funds for tuition and living expenses",
+          "Proof of no criminal record",
+          "Medical exam (if required)",
+          "Proof that you will leave Canada when permit expires"
+        ],
+        "process": [
+          "Get letter of acceptance from DLI",
+          "Apply for study permit online or at visa office",
+          "Provide biometrics",
+          "Wait for processing",
+          "Travel to Canada with introduction letter"
+        ],
+        "fees": [
+          {
+            "amount": 150,
+            "currencyCode": "CAD",
+            "description": "Processing fee"
+          }
+        ],
+        "processingTime": {
+          "min": 4,
+          "max": 16
+        }
+      }
+    ],
+    "immigrationRules": [
+      {
+        "title": "Electronic Travel Authorization (eTA)",
+        "description": "Entry requirement for visa-exempt foreign nationals flying to or transiting through Canada.",
+        "rules": [
+          "Required for visa-except foreign nationals flying to or transiting through Canada",
+          "Not required for US citizens or travelers with valid Canadian visa",
+          "Valid for up to five years or until passport expires",
+          "Costs CAD $7",
+          "Most applicants get approved within minutes"
+        ]
+      },
+      {
+        "title": "Biometrics Requirement",
+        "description": "Most applicants need to give fingerprints and photo (biometrics) after applying.",
+        "rules": [
+          "Required for applicants from Europe, Middle East, Africa, Asia, Asia Pacific and Americas",
+          "Valid for 10 years",
+          "Costs CAD $85 per person or CAD $170 per family",
+          "Collected at official Visa Application Centres"
+        ]
+      }
+    ],
+    "visaFreeCountries": ["us"], // US citizens don't need visa for visits under 6 months
+    "visaOnArrivalCountries": [],
+    "electronicTravelAuthorization": true,
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.canada.ca",
+    "confidence": "official"
+  }
+]

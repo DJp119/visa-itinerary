@@ -1,0 +1,19 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+
+---
+<SiteLayout pageTitle="Visas" pageDescription="Explore visa requirements for destinations around the world.">
+  <Container>
+    <SectionHeader
+      title="Visas"
+      description="Find visa requirements for every country based on your passport."
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Select your passport country to see where you can travel without a visa,
+        where you can get visa on arrival, and what requirements exist for each destination.
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

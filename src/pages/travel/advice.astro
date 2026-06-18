@@ -1,0 +1,82 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import DirectoryCard from '@/components/directory/DirectoryCard.astro';
+
+// Mock data for travel advice
+export async function get() {
+  const adviceArticles = [
+    {
+      id: 'safety-tips',
+      title: 'Essential Safety Tips for International Travel',
+      description: 'Learn how to stay safe while traveling abroad with these practical tips',
+      image: '/images/travel/safety-tips.jpg',
+      stats: [
+        { label: 'Read Time', value: '8 min' },
+        { label: 'Difficulty', value: 'Beginner' },
+        { label: 'Updated', value: 'Jun 2026' }
+      ]
+    },
+    {
+      id: 'budget-travel',
+      title: 'How to Travel on a Budget: 20 Tips for 2026',
+      description: 'Discover strategies to explore the world without breaking the bank',
+      image: '/images/travel/budget-travel.jpg',
+      stats: [
+        { label: 'Read Time', value: '12 min' },
+        { label: 'Difficulty', value: 'Intermediate' },
+        { label: 'Updated', value: 'May 2026' }
+      ]
+    },
+    {
+      id: 'solo-travel',
+      title: 'The Ultimate Guide to Solo Travel',
+      description: 'Everything you need to know about traveling alone safely and confidently',
+      image: '/images/travel/solo-travel.jpg',
+      stats: [
+        { label: 'Read Time', value: '15 min' },
+        { label: 'Difficulty', value: 'Intermediate' },
+        { label: 'Updated', value: 'Jun 2026' }
+      ]
+    }
+  ];
+
+  return {
+    props: {
+      adviceArticles: adviceArticles
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Travel Advice"
+  pageDescription="Expert tips and guides for safe, enjoyable, and meaningful travel experiences."
+>
+  <Container>
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Travel Advice
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        Expert tips, guides, and resources to help you travel safely, affordably, and confidently.
+        From safety tips to budget travel advice, find everything you need for your next adventure.
+      </p>
+    </section>
+
+    <div class="space-y-8">
+      {props.adviceArticles.map((article, index) => (
+        <DirectoryCard
+          key={index}
+          title={article.title}
+          description={article.description}
+          image={article.image}
+          stats={article.stats}
+          href={`/travel/advice/${article.id}`}
+          className="hover:shadow-lg transition-shadow duration-200"
+        />
+      ))}
+    </div>
+  </Container>
+</SiteLayout>

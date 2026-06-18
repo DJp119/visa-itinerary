@@ -1,0 +1,89 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import WidgetViewer from '@/components/widget/WidgetViewer.astro';
+
+// Mock data for widget page
+export async function get() {
+  return {
+    props: {}
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Visa Checker Widget"
+  pageDescription="Add a visa requirement checker to your website with our embeddable widget."
+>
+  <Container>
+    <section class="mb-16">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Visa Checker Widget
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        Add instant visa requirement checking to your website with our simple, customizable widget.
+        No coding required - just copy and paste the embed code.
+      </p>
+    </section>
+
+    <section class="space-y-12">
+      {/* Widget Preview */}
+      <div class="bg-background/50 rounded-lg p-8 border border-border/50">
+        <h3 class="text-xl font-bold text-center mb-6">
+          Widget Preview
+        </h3>
+        <WidgetViewer />
+      </div>
+
+      {/* Widget Features */}
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold mb-2">
+            Features
+          </h3>
+          <ul class="space-y-2 text-foreground/60 list-disc pl-5">
+            <li>Instant visa requirement checking</li>
+            <li>Supports 195+ countries</li>
+            <li>Customizable to match your brand</li>
+            <li>Responsive design for all devices</li>
+            <li>No external dependencies</li>
+            <li>Privacy-focused - no tracking</li>
+          </ul>
+        </div>
+
+        <div class="space-y-4">
+          <h3 class="text-lg font-semibold mb-2">
+            How to Install
+          </h3>
+          <ol class="space-y-2 text-foreground/60 list-decimal pl-5">
+            <li>Copy the embed code below</li>
+            <li>Paste it into your website's HTML</li>
+            <li>Customize the appearance (optional)</li>
+            <li>Start helping your visitors!</li>
+          </ol>
+        </div>
+      </section>
+
+      {/* Embed Code */}
+      <section class="mt-12">
+        <h3 class="text-lg font-semibold mb-4">
+          Embed Code
+        </h3>
+        <div class="bg-background/80/50 rounded-lg p-4 border border-border/50 font-mono text-sm">
+          &lt;!-- Visa Itinerary Widget --&gt;
+          &lt;div class="visaitinerary-widget"
+               data-widget-type="visa-checker"
+               data-default-origin="USA"
+               data-default-destination="CAN"
+          &gt;&lt;/div&gt;
+          &lt;script src="https://widget.visaitinerary.example.com/loader.js" defer&gt;&lt;/script&gt;
+        </div>
+        <button class="mt-2 w-full bg-primary-500 text-primary-foreground px-4 py-2 rounded-md hover:bg-primary-600 transition-colors"
+                onclick="navigator.clipboard.writeText(this.parentElement.parentElement.querySelector('code').innerText).then(() => alert('Embed code copied to clipboard!'));">
+          Copy Embed Code
+        </button>
+      </section>
+    </section>
+  </Container>
+</SiteLayout>

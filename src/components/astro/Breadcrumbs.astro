@@ -1,0 +1,22 @@
+---
+const { items, className } = Astro.props;
+// items should be an array of { label: string, href: string }
+---
+<nav class={`flex items-center space-x-2 text-sm text-foreground/50 ${className}`} aria-label="Breadcrumb">
+  <ol class="flex items-center space-x-2">
+    {items.map((item, index) => (
+      <Fragment key={index}>
+        {index > 0 && (
+          <span class="flex items-center">
+            <span class="text-foreground/30">/</span>
+          </span>
+        )}
+        {index === items.length - 1 ? (
+          <span class="text-foreground/70">{item.label}</span>
+        ) : (
+          <a href={item.href} class="hover:text-foreground transition-colors">{item.label}</a>
+        )}
+      </Fragment>
+    ))}
+  </ol>
+</nav>

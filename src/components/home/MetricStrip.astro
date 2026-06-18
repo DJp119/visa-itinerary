@@ -1,0 +1,29 @@
+---
+const {
+  metrics,
+  className
+} = Astro.props;
+// metrics should be an array of { label: string, value: string | number, icon: string }
+---
+<div class={`mt-12 pt-8 border-t border-border/50 ${className}`}>
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {metrics.map((metric, index) => (
+      <Fragment key={index}>
+        <div class="flex flex-col items-center text-center">
+          {metric.icon && (
+            <div class="mb-3 h-8 w-8 flex items-center justify-center bg-primary-50">
+              <!-- In a real implementation, this would be an actual icon -->
+              <span class="text-primary-500">{metric.icon}</span>
+            </div>
+          )}
+          <div class="text-2xl font-bold text-foreground">
+            {metric.value}
+          </div>
+          <div class="text-sm text-foreground/50">
+            {metric.label}
+          </div>
+        </div>
+      </Fragment>
+    ))}
+  </div>
+</div>

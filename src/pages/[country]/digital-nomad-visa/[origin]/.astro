@@ -1,0 +1,107 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { VisaRequirement } from '@/lib/schemas/visa';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  // In a real implementation, we would get country data and then for each country,
+  // get all possible origin countries that have visa requirements
+  const countryPaths = getCountryStaticPaths();
+  const paths: { params: { country: string; origin: string } }[] = [];
+
+  // For demo, we'll add a few combinations
+  const demoCombinations = [
+    { country: 'ee', origin: 'usa' },  // Estonia for US citizens
+    { country: 'pt', origin: 'usa' },  // Portugal for US citizens
+    { country: 'cr', origin: 'usa' }   // Costa Rica for US citizens
+  ];
+
+  return demoCombinations.map(({ country, origin }) => ({
+    params: { country, origin }
+  }));
+}
+
+// Get country, origin country, and visa data
+export async function get(props: { params: { country: string; origin: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const visaRepo = new FixtureVisaRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        originCountry: null,
+        visaRequirement: null
+      }
+    };
+  }
+
+  // Get origin country data
+  const originCountryData = await countryRepo.getCountryBySlug(props.params.origin);
+
+  // Handle case where origin country is not found
+  if (!originCountryData) {
+    return {
+      props: {
+        country: countryData,
+        originCountry: null,
+        visaRequirement: null
+      }
+    };
+  }
+
+  // Get visa requirements for digital nomad from origin country to destination country
+  const visaRequirements = await visaRepo.getVisaRequirements(
+    originCountryData.id, // passportCountryId (origin)
+    countryData.id,       // destinationCountryId (destination)
+    'digital-nomad'       // kind
+  );
+
+  // Take the first matching requirement (or null if none found)
+  const visaRequirement = visaRequirements.length > 0 ? visaRequirements[0] : null;
+
+  return {
+    props: {
+      country: countryData,
+      originCountry: originCountryData,
+      visaRequirement: visaRequirement
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle=`Digital Nomad Visa for ${props.country.name} from ${props.originCountry.name}`}
+  pageDescription=`Digital nomad visa requirements for citizens of ${props.originCountry.name} wishing to stay and work remotely in ${props.country.name}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.originCountry.name, href: `//${props.originCountry.slug}` },
+        { label: `Digital Nomad Visa for ${props.country.name}`, href: `/${props.country.slug}/digital-nomad` },
+        { label: 'Details', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Digital Nomad Visa for ${props.country.name} from ${props.originCountry.name}`}
+      description={`Digital nomad visa requirements for citizens of ${props.originCountry.name} wishing to stay and work remotely in ${props.country.name}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Find out what visa you need to stay and work remotely in {props.country.name} as a digital nomad when traveling from {props.originCountry.name}.
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

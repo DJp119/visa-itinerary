@@ -1,0 +1,119 @@
+[
+  {
+    "id": "usa-can-tourist",
+    "destinationCountryId": "usa",
+    "passportCountryId": "can",
+    "kind": "tourist",
+    "requirement": "visa-free",
+    "stayDays": 180,
+    "conditions": [
+      "Valid passport required",
+      "Maximum stay of 180 days per visit",
+      "Not authorized to work"
+    ],
+    "documents": [
+      "Valid passport",
+      "Return or onward ticket",
+      "Proof of sufficient funds"
+    ],
+    "sourceUrls": [
+      "https://travel.state.gov"
+    ],
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "confidence": "official"
+  },
+  {
+    "id": "can-usa-tourist",
+    "destinationCountryId": "can",
+    "passportCountryId": "usa",
+    "kind": "tourist",
+    "requirement": "visa-free",
+    "stayDays": 180,
+    "conditions": [
+      "Valid passport required",
+      "Maximum stay of 180 days per visit",
+      "Not authorized to work"
+    ],
+    "documents": [
+      "Valid passport",
+      "Return or onward ticket",
+      "Proof of sufficient funds"
+    ],
+    "sourceUrls": [
+      "https://www.canada.ca"
+    ],
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "confidence": "official"
+  },
+  {
+    "id": "usa-deu-tourist",
+    "destinationCountryId": "deu",
+    "passportCountryId": "usa",
+    "kind": "tourist",
+    "requirement": "visa-free",
+    "stayDays": 90,
+    "conditions": [
+      "Valid passport required",
+      "Maximum stay of 90 days within any 180-day period",
+      "Not authorized to work"
+    ],
+    "documents": [
+      "Valid passport",
+      "Return or onward ticket",
+      "Proof of sufficient funds",
+      "Travel insurance"
+    ],
+    "sourceUrls": [
+      "https://www.germany.info"
+    ],
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "confidence": "official"
+  },
+  {
+    "id": "usa-fra-tourist",
+    "destinationCountryId": "fra",
+    "passportCountryId": "usa",
+    "kind": "tourist",
+    "requirement": "visa-free",
+    "stayDays": 90,
+    "conditions": [
+      "Valid passport required",
+      "Maximum stay of 90 days within any 180-day period",
+      "Not authorized to work"
+    ],
+    "documents": [
+      "Valid passport",
+      "Return or onward ticket",
+      "Proof of sufficient funds",
+      "Travel insurance"
+    ],
+    "sourceUrls": [
+      "https://france-visas.gouv.fr"
+    ],
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "confidence": "official"
+  },
+  {
+    "id": "usa-jpn-tourist",
+    "destinationCountryId": "jpn",
+    "passportCountryId": "usa",
+    "kind": "tourist",
+    "requirement": "visa-free",
+    "stayDays": 90,
+    "conditions": [
+      "Valid passport required",
+      "Maximum stay of 90 days",
+      "Not authorized to work"
+    ],
+    "documents": [
+      "Valid passport",
+      "Return or onward ticket",
+      "Proof of sufficient funds"
+    ],
+    "sourceUrls": [
+      "https://www.mofa.go.jp"
+    ],
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "confidence": "official"
+  }
+]

@@ -1,0 +1,37 @@
+---
+const { pathname } = Astro.url;
+import SeoJsonLd from '@/components/astro/SeoJsonLd.astro';
+import ToastProvider from '@/components/islands/ToastProvider';
+import AuthProvider from '@/lib/auth';
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {Astro.props.pageTitle ?? 'Visa Itinerary'} | Visa Itinerary
+    </title>
+    <meta name="description" content={Astro.props.pageDescription} />
+    <meta name="theme-color" content="#ffffff" />
+
+    <SeoJsonLd
+      type="WebSite"
+      title={Astro.props.pageTitle}
+      description={Astro.props.pageDescription}
+      image={Astro.props.image}
+      path={pathname}
+    />
+  </head>
+  <body class="min-h-flex flex-col">
+    <ToastProvider>
+      <AuthProvider client:load>
+        <SiteHeader />
+        <main class="flex-grow">
+          <slot />
+        </main>
+        <SiteFooter />
+      </AuthProvider>
+    </ToastProvider>
+  </body>
+</html>

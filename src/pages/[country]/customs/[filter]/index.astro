@@ -1,0 +1,121 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { CustomsGuide } from '@/lib/schemas/customs';
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureCustomsRepository } from '@/data/repositories/customsRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: {
+      country: path.params.country,
+      filter: path.params.filter  // This would be things like 'import', 'export', 'duty-free', 'prohibited', etc.
+    }
+  }));
+}
+
+// Get country and filtered customs data
+export async function get(props: { params: { country: string; filter: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const customsRepo = new FixtureCustomsRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(params.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        customsGuide: null,
+        filter: props.params.filter
+      }
+    };
+  }
+
+  // Get all customs regulations for this country
+  const allCustomsRegulations = await customsRepo.getCustomsRegulationsByRegion(''); // Get all, then filter
+  // Actually, let's get by country ID and then filter
+  const allCustomsForCountry = await customsRepo.getCustomsRegulationByCountryId(countryData.id);
+
+  // Since getCustomsRegulationByCountryId returns a single item or null, let's adjust
+  // For filtering, we need to get all regulations. Let's modify the approach
+  // For now, we'll use the search method or get all and filter in memory
+  // Let's get all regulations and filter by country ID manually
+  const allRegulations = await customsRepo.searchCustomsRegulations(''); // Get all
+  const allCustomsForCountryFiltered = allRegulations.filter(regulation => regulation.countryId === countryData.id);
+
+  // Filter by the specified filter parameter
+  // In a real implementation, this would filter by actual properties like topic, region, etc.
+  // For now, we'll do a simple text match on title or description
+  const filteredCustoms = allCustomsForCountryFiltered.filter(regulation =>
+    regulation.title.toLowerCase().includes(props.params.filter.toLowerCase()) ||
+    regulation.description.toLowerCase().includes(props.params.filter.toLowerCase()) ||
+    regulation.content.toLowerCase().includes(props.params.filter.toLowerCase())
+  );
+
+  return {
+    props: {
+      country: countryData,
+      customsGuide: filteredCustoms.length > 0 ? filteredCustoms[0] : null,
+      filter: props.params.filter
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle={`Customs Guide for ${props.country?.name} - ${props.filter}`}
+  pageDescription=`Filtered customs information for ${props.country?.name} related to ${props.filter}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country?.name || 'Country', href: `/${props.country?.slug}` },
+        { label: 'Customs Guide', href: `/${props.country?.slug}/customs` },
+        { label: props.filter, href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Customs Guide for ${props.country?.name} - ${props.filter}`}
+      description={`Customs information related to ${props.filter} for ${props.country?.name}`}
+    >
+      {props.customsGuide && (
+        <>
+          <p class="text-lg text-foreground/60 mb-8">
+            Customs information related to "{props.filter}".
+          </p>
+
+          <div class="mb-3">
+            <h3 class="text-lg font-semibold text-foreground">
+              {props.customsGuide.title}
+            </h3>
+            <p class="text-sm text-foreground/50">
+              {props.customsGuide.description}
+            </p>
+          </div>
+
+          {props.customsGuide.content && (
+            <div class="prose prose-lg max-w-none">
+              {props.customsGuide.content}
+            </div>
+          )}
+        </>
+      ) : (
+        <div class="text-center py-8">
+          <p class="text-lg text-foreground/50">
+            No customs information found for {props.country?.name} related to "{props.filter}".
+          </p>
+        </div>
+      )}
+    </SectionHeader>
+  </Container>
+</SiteLayout>

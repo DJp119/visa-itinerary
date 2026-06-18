@@ -1,0 +1,114 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import DirectoryCard from '@/components/directory/DirectoryCard.astro';
+
+// Mock data for powerful visas
+export async function get() {
+  const powerfulVisas = [
+    {
+      id: 'usa',
+      name: 'United States of America',
+      shortName: 'USA',
+      iso2: 'US',
+      iso3: 'USA',
+      heroImage: '/images/countries/usa/hero.jpg',
+      stats: [
+        { label: 'Visa Free Score', value: '147' },
+        { label: 'Global Ranking', value: '43rd' },
+        { label: 'Continent', value: 'Americas' }
+      ]
+    },
+    {
+      id: 'deu',
+      name: 'Germany',
+      shortName: 'DEU',
+      iso2: 'DE',
+      iso3: 'DEU',
+      heroImage: '/images/countries/deu/hero.jpg',
+      stats: [
+        { label: 'Visa Free Score', value: '128' },
+        { label: 'Global Ranking', value: '2nd' },
+        { label: 'Continent', value: 'Europe' }
+      ]
+    },
+    {
+      id: 'fra',
+      name: 'France',
+      shortName: 'FRA',
+      iso2: 'FR',
+      iso3: 'FRA',
+      heroImage: '/images/countries/fra/hero.jpg',
+      stats: [
+        { label: 'Visa Free Score', value: '128' },
+        { label: 'Global Ranking', value: '2nd' },
+        { label: 'Continent', value: 'Europe' }
+      ]
+    },
+    {
+      id: 'jpn',
+      name: 'Japan',
+      shortName: 'JPN',
+      iso2: 'JP',
+      iso3: 'JPN',
+      heroImage: '/images/countries/jpn/hero.jpg',
+      stats: [
+        { label: 'Visa Free Score', value: '143' },
+        { label: 'Global Ranking', value: '1st' },
+        { label: 'Continent', value: 'Asia' }
+      ]
+    },
+    {
+      id: 'sgp',
+      name: 'Singapore',
+      shortName: 'SGP',
+      iso2: 'SG',
+      iso3: 'SGP',
+      heroImage: '/images/countries/sgp/hero.jpg', // Would need to add this image
+      stats: [
+        { label: 'Visa Free Score', value: '127' },
+        { label: 'Global Ranking', value: '3rd' },
+        { label: 'Continent', value: 'Asia' }
+      ]
+    }
+  ];
+
+  return {
+    props: {
+      powerfulVisas: powerfulVisas
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Most Powerful Passports"
+  pageDescription="Discover which passports offer the greatest travel freedom around the world."
+>
+  <Container>
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Most Powerful Passports
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        Discover which passports offer the greatest visa-free access to countries around the world.
+        Our ranking is based on the number of destinations accessible without a prior visa.
+      </p>
+    </section>
+
+    <div class="space-y-8">
+      {props.powerfulVisas.map((visa, index) => (
+        <DirectoryCard
+          key={index}
+          title={visa.name}
+          description={`Learn about the passport power of ${visa.name}`}
+          image={visa.heroImage}
+          stats={visa.stats}
+          href={`/passport/${visa.iso2.toLowerCase()}`}
+          className="hover:shadow-lg transition-shadow duration-200"
+        />
+      ))}
+    </div>
+  </Container>
+</SiteLayout>

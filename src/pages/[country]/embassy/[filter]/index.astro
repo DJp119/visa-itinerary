@@ -1,0 +1,157 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import { MapPin, Mail, Phone, Globe } from 'lucide-react';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { EmbassyInfo } from '@/lib/schemas/embassy';
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureEmbassyRepository } from '@/data/repositories/embassyRepository;
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: {
+      country: path.params.country,
+      filter: path.params.filter  // This would be things like 'visa', 'passport', 'consular', etc.
+    }
+  }));
+}
+
+// Get country and filtered embassy data
+export async function get(props: { params: { country: string; filter: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const embassyRepo = new FixtureEmbassyRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        embassyInfo: [],
+        filter: props.params.filter
+      }
+    };
+  }
+
+  // Get all embassy info for this country
+  const allEmbassies = await embassyRepo.getEmbassyInfoByCountryId(countryData.id);
+
+  // Filter by the specified filter parameter
+  // In a real implementation, this would filter by actual properties like service type, etc.
+  // For now, we'll do a simple text match on name, location, or address
+  const filteredEmbassies = allEmbassies.filter(embassy =>
+    embassy.name.toLowerCase().includes(props.params.filter.toLowerCase()) ||
+    embassy.location.toLowerCase().includes(props.params.filter.toLowerCase()) ||
+    embassy.address.toLowerCase().includes(params.params.filter.toLowerCase())
+  );
+
+  return {
+    props: {
+      country: countryData,
+      embassyInfo: filteredEmbassies,
+      filter: props.params.filter
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle={`Embassies for ${props.country?.name} - ${props.filter}`}
+  pageDescription=`Filtered embassy information for ${props.country?.name} related to ${props.filter}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country?.name || 'Country', href: `/${props.country?.slug}` },
+        { label: 'Embassies', href: `/${props.country?.slug}/embassy` },
+        { label: props.filter, href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Embassies for ${props.country?.name} - ${props.filter}`}
+      description={`Embassies related to ${props.filter} for ${props.country?.name}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Filtered embassy information for {props.country?.name} related to "{props.filter}".
+      </p>
+
+      {props.embassyInfo && props.embassyInfo.length > 0 ? (
+        <>
+          <div class="space-y-6">
+            {props.embassyInfo.map((embassy, index) => (
+              <div key={index} class="border border-border/50 rounded-lg p-6 bg-background/50">
+                <div class="mb-4">
+                  <h3 class="text-lg font-semibold text-foreground">
+                    {embassy.name}
+                  </h3>
+                  <p class="text-sm text-foreground/50">
+                    {embassy.location}
+                  </p>
+                </div>
+
+                <div class="space-y-3">
+                  <div class="flex items-start space-x-3">
+                    <MapPin className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary-500" />
+                    <div>
+                      <p className="font-medium text-foreground">Address</p>
+                      <p className="text-sm text-foreground/50">{embassy.address}</p>
+                    </div>
+                  </div>
+
+                  {embassy.phone && (
+                    <div class="flex items-start space-x-3">
+                      <Phone className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary-500" />
+                      <div>
+                        <p className="font-medium text-foreground">Phone</p>
+                        <p className="text-sm text-foreground/50">{embassy.phone}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {embassy.email && (
+                    <div class="flex items-start space-x-3">
+                      <Mail className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary-500" />
+                      <div>
+                        <p className="font-medium text-foreground">Email</p>
+                        <p className="text-sm text-foreground/50">{embassy.email}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  {embassy.website && (
+                    <div class="flex items-start space-x-3">
+                      <Globe className="h-4 w-4 flex-shrink-0 mt-0.5 text-primary-500" />
+                      <div>
+                        <p className="font-medium text-foreground">Website</p>
+                        <p className="text-sm text-foreground/50">
+                          <a href={embassy.website} target="_blank" rel="noopener noreferrer" className="underline text-primary-500 hover:text-primary-600">
+                            {embassy.website}
+                          </a>
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
+      ) : (
+        <div class="text-center py-8">
+          <p class="text-lg text-foreground/50">
+            No embassy information found for {props.country?.name} related to "{props.filter}".
+          </p>
+        </div>
+      )}
+    </SectionHeader>
+  </Container>
+</SiteLayout>

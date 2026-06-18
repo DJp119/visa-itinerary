@@ -1,0 +1,90 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { TravelRestriction } from '@/lib/schemas/travel';
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureTravelRepository } from '@/data/repositories/travelRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country }
+  }));
+}
+
+// Get country and travel restriction data
+export async function get(props: { params: { country: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const travelRepo = new FixtureTravelRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        travelRestriction: null
+      }
+    };
+  }
+
+  // Get travel restriction data for this country
+  const travelRestrictionData = await travelRepo.getTravelRestrictionByCountryId(countryData.id);
+
+  return {
+    props: {
+      country: countryData,
+      travelRestriction: travelRestrictionData
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle={`Travel Restrictions for ${props.country?.name}`}
+  pageDescription=`Current travel restrictions and requirements for ${props.country?.name}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country?.name || 'Country', href: `/${props.country?.slug}` },
+        { label: 'Travel Guide', href: `/${props.country?.slug}/travel` },
+        { label: 'Travel Restrictions', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Travel Restrictions for ${props.country?.name}`}
+      description={`Current entry requirements, quarantine rules, and travel restrictions for ${props.country?.name}`}
+    >
+      {props.travelRestriction && (
+        <>
+          <p class="text-lg text-foreground/60 mb-8">
+            {props.travelRestriction.description}
+          </p>
+
+          {props.travelRestriction.content && (
+            <div class="prose prose-lg max-w-none">
+              {props.travelRestriction.content}
+            </div>
+          )}
+        </>
+      )}
+
+      {!props.travelRestriction && (
+        <p class="text-lg text-foreground/60 mb-8">
+          Travel restriction information for {props.country?.name} is not available.
+        </p>
+      )}
+    </SectionHeader>
+  </Container>
+</SiteLayout>

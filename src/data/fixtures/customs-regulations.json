@@ -1,0 +1,24 @@
+[
+  {
+    "id": "fr-customs",
+    "title": "France Customs Regulations",
+    "description": "What you can and cannot bring into France",
+    "content": "## Duty-Free Allowances\nTravelers arriving from non-EU countries are entitled to the following duty-free allowances:\n\n- Tobacco: 200 cigarettes OR 100 cigarillos OR 50 cigars OR 250g smoking tobacco\n- Alcohol: 4L wine OR 16L beer OR 1L spirits over 22% volume OR 2L fortified/sparkling wine\n- Perfume: 50g perfume and 250ml eau de toilette\n- Other goods: Up to €430 value (air/sea travelers) or €300 value (other travelers)\n\n## Restricted Items\n- Meat and dairy products: Generally prohibited from non-EU countries\n- Plants and plant products: Require phytosanitary certificate\n- Endangered species products: Prohibited under CITES\n- Counterfeit goods: Strictly prohibited\n- Weapons: Require special authorization\n\n## Prohibited Items\n- Narcotics and illegal drugs\n- Offensive weapons\n- Counterfeit currency and securities\n- pornographic materials involving minors\n- Certain plants and plant products without certification\n\n## Declaration Requirements\n- Cash amounts over €10,000 must be declared\n- High-value electronics, jewelry, and other valuables should be declared for insurance purposes\n- Firearms and ammunition require prior authorization and declaration\n\n## Agriculture Restrictions\n- Fresh fruits and vegetables: Generally restricted from outside EU\n- Seeds and bulbs: Require phytosanitary certificate\n- Soil: Prohibited without special permit\n- Live animals: Require health certificate and import permit",
+    "countryId": "fra",
+    "slug": "france-customs",
+    "region": "Europe",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.douane.gouv.fr"
+  },
+  {
+    "id": "jp-customs",
+    "title": "Japan Customs Regulations",
+    "description": "What you can and cannot bring into Japan",
+    "content": "## Duty-Free Allowances\nTravelers arriving in Japan are entitled to the following duty-free allowances:\n\n- Tobacco: 200 cigarettes OR 50 cigars OR 250g tobacco\n- Alcohol: 3 bottles (each approx 760ml) of alcoholic beverages\n- Perfume: 2 ounces (approx 60ml) of perfume\n- Other goods: Up to ¥200,000 value (approximately $1,500 USD)\n\n## Restricted Items\n- Firearms and ammunition: Strictly prohibited without prior authorization\n- Sword blades: Require special permission for import\n- Drugs: Certain medications require yakkan shoukou (import certificate)\n- Plants and plant products: Require phytosanitary certificate\n- Soil: Prohibited without special authorization\n- Fresh fruit: Some varieties restricted due to pest concerns\n\n## Prohibited Items\n- Narcotics and stimulants (including certain prescription medications)\n- Gunpowder and explosives\n- Counterfeit goods\n- Obscene materials\n- Products infringing intellectual property rights\n- Certain fresh fruits, vegetables, and meat products\n\n## Declaration Requirements\n- Cash, checks, and securities over ¥1,000,000 must be declared\n- Separate declaration forms for restricted items like medications, plants, and animal products\n- Unaccompanied baggage requires advance declaration\n\n## Agriculture Restrictions\n- Fresh fruits and vegetables: Many varieties prohibited or restricted\n- Plants and seeds: Require phytosanitary certificate and may need post-entry quarantine\n- Meat products: Generally prohibited from most countries\n- Soil and organisms: Strictly controlled to prevent invasive species\n- Live animals: Require health certificate, import permit, and may need quarantine",
+    "countryId": "jpn",
+    "slug": "japan-customs",
+    "region": "Asia",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.customs.go.jp"
+  }
+]

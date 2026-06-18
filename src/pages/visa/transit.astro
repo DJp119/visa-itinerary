@@ -1,0 +1,87 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import DirectoryCard from '@/components/directory/DirectoryCard.astro';
+
+// Mock data for transit visas
+export async function get() {
+  const transitCountries = [
+    {
+      id: 'ae',
+      name: 'United Arab Emirates',
+      shortName: 'UAE',
+      iso2: 'AE',
+      iso3: 'ARE',
+      heroImage: '/images/countries/ae/hero.jpg',
+      stats: [
+        { label: 'Transit Visa', value: 'Free (48-96 hrs)' },
+        { label: 'Eligibility', value: 'Certain nationalities' },
+        { label: 'Airports', value: 'DXB, AUH' }
+      ]
+    },
+    {
+      id: 'tr',
+      name: 'Turkey',
+      shortName: 'TUR',
+      iso2: 'TR',
+      iso3: 'TUR',
+      heroImage: '/images/countries/tr/hero.jpg',
+      stats: [
+        { label: 'Transit Visa', value: 'e-Visa available' },
+        { label: 'Validity', value: 'Up to 72 hours' },
+        { label: 'Fee', value: '$20-$60' }
+      ]
+    },
+    {
+      id: 'qa',
+      name: 'Qatar',
+      shortName: 'QAT',
+      iso2: 'QA',
+      iso3: 'QAT',
+      heroImage: '/images/countries/qa/hero.jpg',
+      stats: [
+        { label: 'Transit Visa', value: 'Free (5-96 hrs)' },
+        { label: 'Eligibility', value: 'With Qatar Airways' },
+        { label: 'Airport', value: 'DOH' }
+      ]
+    }
+  ];
+
+  return {
+    props: {
+      transitCountries: transitCountries
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Transit Visa Information"
+  pageDescription="Find transit visa requirements for layovers and connecting flights."
+>
+  <Container>
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Transit Visa Information
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        Discover transit visa requirements for layovers and connecting flights. Many countries offer free transit visas for certain nationalities and flight routes.
+      </p>
+    </section>
+
+    <div class="space-y-8">
+      {props.transitCountries.map((country, index) => (
+        <DirectoryCard
+          key={index}
+          title={country.name}
+          description={`Learn about transit visa requirements for ${country.name}`}
+          image={country.heroImage}
+          stats={country.stats}
+          href={`/visa/transit/${country.iso2.toLowerCase()}`}
+          className="hover:shadow-lg transition-shadow duration-200"
+        />
+      ))}
+    </div>
+  </Container>
+</SiteLayout>

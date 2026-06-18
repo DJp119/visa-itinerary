@@ -1,0 +1,107 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { VisaRequirement } from '@/lib/schemas/visa';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  // In a real implementation, we would get country data and then for each country,
+  // get all possible origin countries that have visa requirements
+  const countryPaths = getCountryStaticPaths();
+  const paths: { params: { country: string; origin: string } }[] = [];
+
+  // For demo, we'll add a few combinations
+  const demoCombinations = [
+    { country: 'ae', origin: 'usa' },  // UAE for US citizens
+    { country: 'tr', origin: 'usa' },  // Turkey for US citizens
+    { country: 'qa', origin: 'usa' }   // Qatar for US citizens
+  ];
+
+  return demoCombinations.map(({ country, origin }) => ({
+    params: { country, origin }
+  }));
+}
+
+// Get country, origin country, and visa data
+export async function get(props: { params: { country: string; origin: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const visaRepo = new FixtureVisaRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        originCountry: null,
+        visaRequirement: null
+      }
+    };
+  }
+
+  // Get origin country data
+  const originCountryData = await countryRepo.getCountryBySlug(props.params.origin);
+
+  // Handle case where origin country is not found
+  if (!originCountryData) {
+    return {
+      props: {
+        country: countryData,
+        originCountry: null,
+        visaRequirement: null
+      }
+    };
+  }
+
+  // Get visa requirements for transit from origin country to destination country
+  const visaRequirements = await visaRepo.getVisaRequirements(
+    originCountryData.id, // passportCountryId (origin)
+    countryData.id,       // destinationCountryId (destination)
+    'transit'             // kind
+  );
+
+  // Take the first matching requirement (or null if none found)
+  const visaRequirement = visaRequirements.length > 0 ? visaRequirements[0] : null;
+
+  return {
+    props: {
+      country: countryData,
+      originCountry: originCountryData,
+      visaRequirement: visaRequirement
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle=`Transiting through ${props.country.name} from ${props.originCountry.name}`}
+  pageDescription=`Transit visa requirements for citizens of ${props.originCountry.name} transiting through ${props.country.name}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.originCountry.name, href: `/${props.originCountry.slug}` },
+        { label: `Transit via ${props.country.name}`, href: `/${props.country.slug}/transit` },
+        { label: 'Transit Visa', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Transiting through ${props.country.name} from ${props.originCountry.name}`}
+      description={`Transit visa requirements for citizens of ${props.originCountry.name} transiting through ${props.country.name}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Find out what visa you need to transit through {props.country.name} (typically for layovers or connecting flights) when traveling from {props.originCountry.name}.
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

@@ -1,0 +1,71 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import MetricStrip from '@/components/home/MetricStrip.astro';
+
+// Mock data for passport freedom
+export async function get() {
+  const freedomMetrics = [
+    { label: 'Visa Free Destinations', value: '143', icon: '🌐' },
+    { label: 'Visa on Arrival', value: '44', icon: '📝' },
+    { label: 'e-Visa Required', value: '11', icon: '💻' },
+    { label: 'Visa Required', value: '32', icon: '🚫' },
+    { label: 'Total Countries', value: '195', icon: '📊' }
+  ];
+
+  const freedomScoreDistribution = [
+    { range: '140+', count: '2', label: 'Elite' },
+    { range: '120-139', count: '18', label: 'Strong' },
+    { range: '100-119', count: '35', label: 'Good' },
+    { range: '80-99', count: '45', label: 'Moderate' },
+    { range: '<80', count: '95', label: 'Limited' }
+  ];
+
+  return {
+    props: {
+      freedomMetrics: freedomMetrics,
+      freedomScoreDistribution: freedomScoreDistribution
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Passport Freedom Index"
+  pageDescription="Understand what passport freedom means and how it's calculated."
+>
+  <Container>
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Passport Freedom Index
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        The Passport Freedom Index measures global mobility based on the number of destinations accessible without a prior visa. Higher scores indicate greater travel freedom.
+      </p>
+    </section>
+
+    <section class="space-y-8">
+      <MetricStrip metrics={props.freedomMetrics} />
+
+      <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+        <h3 class="text-xl font-bold mb-4">
+          Freedom Score Distribution
+        </h3>
+        <p class="text-foreground/60 mb-4">
+          Distribution of passport power scores globally:
+        </p>
+        <div class="space-y-3 text-sm text-foreground/60">
+          {props.freedomScoreDistribution.map((item, index) => (
+            <Fragment key={index}>
+              <div class="flex justify-between">
+                <span>{item.label} ({item.range}):</span>
+                <span>{item.count} countries</span>
+              </div>
+            </Fragment>
+          ))}
+        </div>
+      </div>
+    </section>
+  </Container>
+</SiteLayout>

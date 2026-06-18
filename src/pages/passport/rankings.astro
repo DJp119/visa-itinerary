@@ -1,0 +1,113 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import DirectoryCard from '@/components/directory/DirectoryCard.astro';
+
+// Mock data for passport rankings
+export async function get() {
+  const rankedPassports = [
+    {
+      id: 'jp',
+      name: 'Japan',
+      shortName: 'JPN',
+      iso2: 'JP',
+      iso3: 'JPN',
+      heroImage: '/images/countries/jp/hero.jpg',
+      stats: [
+        { label: 'Global Rank', value: '1st' },
+        { label: 'Visa Free Score', value: '143' },
+        { label: 'Change', value: '↔' }
+      ]
+    },
+    {
+      id: 'de',
+      name: 'Germany',
+      shortName: 'DEU',
+      iso2: 'DE',
+      iso3: 'DEU',
+      heroImage: '/images/countries/de/hero.jpg',
+      stats: [
+        { label: 'Global Rank', value: '2nd' },
+        { label: 'Visa Free Score', value: '128' },
+        { label: 'Change', value: '↔' }
+      ]
+    },
+    {
+      id: 'fr',
+      name: 'France',
+      shortName: 'FRA',
+      iso2: 'FR',
+      iso3: 'FRA',
+      heroImage: '/images/countries/fr/hero.jpg',
+      stats: [
+        { label: 'Global Rank', value: '2nd' },
+        { label: 'Visa Free Score', value: '128' },
+        { label: 'Change', value: '↔' }
+      ]
+    },
+    {
+      id: 'sg',
+      name: 'Singapore',
+      shortName: 'SGP',
+      iso2: 'SG',
+      iso3: 'SGP',
+      heroImage: '/images/countries/sg/hero.jpg',
+      stats: [
+        { label: 'Global Rank', value: '3rd' },
+        { label: 'Visa Free Score', value: '127' },
+        { label: 'Change', value: '↔' }
+      ]
+    },
+    {
+      id: 'fi',
+      name: 'Finland',
+      shortName: 'FIN',
+      iso2: 'FI',
+      iso3: 'FIN',
+      heroImage: '/images/countries/fi/hero.jpg',
+      stats: [
+        { label: 'Global Rank', value: '3rd' },
+        { label: 'Visa Free Score', value: '127' },
+        { label: 'Change', value: '↔' }
+      ]
+    }
+  ];
+
+  return {
+    props: {
+      rankedPassports: rankedPassports
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Passport Rankings"
+  pageDescription="See which passports offer the most global mobility."
+>
+  <Container>
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Passport Rankings
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        Discover which passports offer the most visa-free access to countries around the world. Our rankings are updated regularly based on the latest visa agreements.
+      </p>
+    </section>
+
+    <div class="space-y-8">
+      {props.rankedPassports.map((passport, index) => (
+        <DirectoryCard
+          key={index}
+          title={passport.name}
+          description={`Learn about the passport power of ${passport.name}`}
+          image={passport.heroImage}
+          stats={passport.stats}
+          href={`/passport/${passport.iso2.toLowerCase()}`}
+          className="hover:shadow-lg transition-shadow duration-200"
+        />
+      ))}
+    </div>
+  </Container>
+</SiteLayout>

@@ -1,0 +1,46 @@
+<footer class="mt-auto bg-footer text-primary-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-xl font-bold mb-4">Visa Itinerary</h3>
+        <p class="text-primary-200">
+          Discover visa requirements and travel information for destinations worldwide.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3">Resources</h4>
+        <ul class="space-y-2 text-primary-200">
+          <li><a href="/about" class="hover:text-primary-100 transition-colors">About</a></li>
+          <li><a href="/contact" class="hover:text-primary-100 transition-colors">Contact</a></li>
+          <li><a href="/open" class="hover:text-primary-100 transition-colors">Open Metrics</a></li>
+          <li><a href="/integrate" class="hover:text-primary-100 transition-colors">Integrate</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3">Legal</h4>
+        <ul class="space-y-2 text-primary-200">
+          <li><a href="/terms" class="hover:text-primary-100 transition-colors">Terms of Service</a></li>
+          <li><a href="/privacy" class="hover:text-primary-100 transition-colors">Privacy Policy</a></li>
+          <li><a href="/disclaimer" class="hover:text-primary-100 transition-colors">Disclaimer</a></li>
+        </ul>
+      </div>
+    </div>
+
+    {/* Desktop-only controls */}
+    <div class="md:flex md:items-center md:justify-between mt-8">
+      <div class="flex items-center space-x-4">
+        <ThemeSelector className="mr-4" />
+        <LocaleSelector className="mr-4" />
+        <ShareMenu className="mr-4" />
+      </div>
+
+      <div class="text-sm text-primary-300">
+        &copy; {new Date().getFullYear()} Visa Itinerary. All rights reserved.
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-border/50 text-center text-primary-300 text-sm">
+      &copy; {new Date().getFullYear()} Visa Itinerary. All rights reserved.
+    </div>
+  </div>
+</footer>

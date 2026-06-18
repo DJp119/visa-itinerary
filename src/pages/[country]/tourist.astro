@@ -1,0 +1,84 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { VisaRequirement } from '@/lib/schemas/visa';
+
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureVisaRepository } from '@/data/repositories/visaRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  // In a real implementation, we would get this from the countries repository
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country }
+  }));
+}
+
+// Get country and visa data
+export async function get(props: { params: { country: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const visaRepo = new FixtureVisaRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        visaRequirements: []
+      }
+    };
+  }
+
+  // For tourist visa page, we typically want to show what visas are needed to visit this country
+  // This would typically be based on the user's passport, but since we don't have that context here,
+  // we'll show all tourist visa requirements for this destination country
+  // In a real implementation with user context, we'd filter by the user's passport country
+  const visaRequirements = await visaRepo.getVisaRequirementsByDestination(countryData.id);
+
+  // Filter to only tourist visas for this page
+  const touristVisaRequirements = visaRequirements.filter(
+    req => req.kind === 'tourist'
+  );
+
+  return {
+    props: {
+      country: countryData,
+      visaRequirements: touristVisaRequirements
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle={`Tourist Visas for ${props.country.name}`}
+  pageDescription=`Find tourist visa requirements for ${props.country.name} based on your passport.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country.name, href: `/${props.country.slug}` },
+        { label: 'Tourist Visas', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Tourist Visas for ${props.country.name}`}
+      description={`Find out what visa you need to visit ${props.country.name} as a tourist`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Select your passport country to see the visa requirements for visiting
+        {props.country.name} as a tourist.
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

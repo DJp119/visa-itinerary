@@ -1,0 +1,41 @@
+---
+const { pathname } = Astro.url;
+import MobileNavDrawer from '@/components/islands/MobileNavDrawer';
+import ThemeSelector from '@/components/islands/ThemeSelector';
+import LocaleSelector from '@/components/islands/LocaleSelector';
+import ShareMenu from '@/components/islands/ShareMenu';
+---
+<header class="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
+    <div class="flex-shrink-0 flex items-center space-x-3">
+      <a href="/" class="text-primary-500 hover:text-primary-600 font-bold text-xl">
+        Visa Itinerary
+      </a>
+    </div>
+    <nav class="hidden md:flex space-x-6">
+      <a href="/" class={`text-${pathname === '/' ? 'foreground' : 'foreground/70'} hover:text-foreground transition-colors`}>Home</a>
+      <a href="/visa" class={`text-${pathname.startsWith('/visa') ? 'foreground' : 'foreground/70'} hover:text-foreground transition-colors`}>Visas</a>
+      <a href="/passport" class={`text-${pathname.startsWith('/passport') ? 'foreground' : 'foreground/70'} hover:text-foreground transition-colors`}>Passports</a>
+      <a href="/travel" class={`text-${pathname.startsWith('/travel') ? 'foreground' : 'foreground/70'} hover:text-foreground transition-colors`}>Travel</a>
+      <a href="/open" class={`text-${pathname === '/open' ? 'foreground' : 'foreground/70'} hover:text-foreground transition-colors`}>Open</a>
+      <a href="/integrate" class={`text-${pathname === '/integrate' ? 'foreground' : 'foreground/70'} hover:text-foreground transition-colors`}>Integrate</a>
+    </nav>
+    <div class="flex-shrink-0 flex items-center space-x-3">
+      <button class="btn-primary px-4 py-2 rounded-md text-sm">Login</button>
+    </div>
+
+    {/* Mobile-only controls */}
+    <div class="md:hidden flex items-center space-x-3">
+      <MobileNavDrawer />
+      <ThemeSelector className="ml-3" />
+      <LocaleSelector className="ml-3" />
+      <ShareMenu className="ml-3" />
+    </div>
+  </div>
+</header>
+
+<style>
+  .btn-primary {
+    @apply bg-primary-500 text-primary-foreground hover:bg-primary-600 transition-colors;
+  }
+</style>
