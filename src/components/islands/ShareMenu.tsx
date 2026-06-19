@@ -10,34 +10,36 @@ interface ShareMenuProps {
 export default function ShareMenu({
   className,
   title = 'Visa Itinerary',
-  url = window.location.href
+  url
 }: ShareMenuProps = {}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleShareMenu = () => setIsOpen(!isOpen);
   const closeShareMenu = () => setIsOpen(false);
 
+  const getUrl = () => url || (typeof window !== 'undefined' ? window.location.href : '');
+
   const shareToTwitter = () => {
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(getUrl())}`;
     window.open(twitterUrl, '_blank', 'width=500,height=300');
     closeShareMenu();
   };
 
   const shareToFacebook = () => {
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getUrl())}`;
     window.open(facebookUrl, '_blank', 'width=500,height=300');
     closeShareMenu();
   };
 
   const shareToLinkedIn = () => {
-    const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+    const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(getUrl())}&title=${encodeURIComponent(title)}`;
     window.open(linkedinUrl, '_blank', 'width=500,height=300');
     closeShareMenu();
   };
 
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(getUrl());
       closeShareMenu();
       // TODO: Show toast notification
       alert('Link copied to clipboard!');
