@@ -1,0 +1,39 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+---
+
+<SiteLayout
+  pageTitle="About Visa Itinerary"
+  pageDescription="Learn about our mission to simplify travel visa information"
+>
+  <Container>
+    <SectionHeader
+      title="About Visa Itinerary"
+      description="Learn about our mission to simplify travel visa information"
+    >
+      <article class="prose lg:prose-xl mx-auto text-foreground/80">
+        <!-- Content would come from the markdown file in a real implementation -->
+        <p>Visa Itinerary is a travel visa discovery platform that simplifies the process of understanding visa requirements for international travel.</p>
+
+        <h2>Our Mission</h2>
+        <p>Our mission is to make visa information accessible, accurate, and actionable for travelers worldwide. We believe that understanding visa requirements shouldn't be a barrier to exploring the world.</p>
+
+        <h2>How We Work</h2>
+        <p>We collect visa information from official government sources, partner with trusted organizations, and maintain strict verification processes to ensure the accuracy of our data. Each piece of information includes source attribution and verification timestamps.</p>
+
+        <h2>Our Commitment</h2>
+        <ul>
+          <li><strong>Accuracy:</strong> We verify all visa information through multiple sources</li>
+          <li><strong>Transparency:</strong> We provide source attribution for all data</li>
+          <li><strong>Accessibility:</strong> We present information in clear, easy-to-understand formats</li>
+          <li><strong>Up-to-date:</strong> We regularly update our information to reflect policy changes</li>
+        </ul>
+
+        <h2>Contact Us</h2>
+        <p>Have questions or feedback? Reach out to our team at <a href="mailto:contact@visaitinerary.example.com">contact@visaitinerary.example.com</a>.</p>
+      </article>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

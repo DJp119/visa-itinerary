@@ -1,0 +1,127 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+---
+
+<SiteLayout
+  pageTitle="Pricing"
+  pageDescription="Choose the plan that's right for your visa and travel needs"
+>
+  <Container>
+    <SectionHeader
+      title="Pricing"
+      description="Choose the plan that's right for your visa and travel needs"
+    >
+      <div class="grid gap-8 sm:grid-cols-1 lg:grid-cols-3">
+        {/* Free Plan */}
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-xl font-bold text-center mb-4">
+            Free
+          </h3>
+          <p class="text-center text-lg font-semibold mb-6">
+            $0
+          </p>
+          <ul class="space-y-4 text-foreground/60 mb-6">
+            <li>Basic visa information</li>
+            <li>Country guides</li>
+            <li>Passport lookup</li>
+            <li>Travel advice articles</li>
+            <li>Community forums (read-only)</li>
+          </ul>
+          <a href="/register" class="w-full bg-transparent border border-primary-500 text-primary-500 px-4 py-2 rounded-md hover:bg-primary-50 transition-colors">
+            Sign Up for Free
+          </a>
+        </div>
+
+        {/* Pro Plan */}
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <div class="badge bg-primary-500 text-primary-foreground text-xs px-3 py-1 rounded mb-4 inline-block">
+            Most Popular
+          </div>
+          <h3 class="text-xl font-bold text-center mb-4">
+            Pro
+          </h3>
+          <p class="text-center text-lg font-semibold mb-6">
+            $9.99<span class="text-xs">/mo</span>
+          </p>
+          <ul class="space-y-4 text-foreground/60 mb-6">
+            <li>Everything in Free, plus:</li>
+            <li class="pl-4">Advanced visa searches</li>
+            <li class="pl-4">Document generation</li>
+            <li class="pl-4">Priority email support</li>
+            <li class="pl-4">Application tracker</li>
+            <li class="pl-4">AI travel assistant</li>
+            <li class="pl-4">Ad-free experience</li>
+          </ul>
+          <a href="/register" class="w-full bg-primary-500 text-primary-foreground px-4 py-2 rounded-md hover:bg-primary-600 transition-colors">
+            Get Started
+          </a>
+        </div>
+
+        {/* Enterprise Plan */}
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-xl font-bold text-center mb-4">
+            Enterprise
+          </h3>
+          <p class="text-center text-lg font-semibold mb-6">
+            Custom<span class="text-xs">/mo</span>
+          </p>
+          <ul class="space-y-4 text-foreground/60 mb-6">
+            <li>Everything in Pro, plus:</li>
+            <li class="pl-4">API access</li>
+            <li class="pl-4">Custom branding</li>
+            <li class="pl-4">Dedicated account manager</li>
+            <li class="pl-4">Volume discounts</li>
+            <li class="pl-4">SLA guarantees</li>
+            <li class="pl-4">Custom integrations</li>
+          </ul>
+          <a href="/contact" class="w-full bg-transparent border border-primary-500 text-primary-500 px-4 py-2 rounded-md hover:bg-primary-50 transition-colors">
+            Contact Sales
+          </a>
+        </div>
+      </div>
+
+      {/* Frequently Asked Questions */}
+      <section class="mt-16">
+        <h2 class="text-3xl font-bold text-center mb-8">
+          Frequently Asked Questions
+        </h2>
+        <div class="max-w-2xl mx-auto space-y-6">
+          <div class="border border-border/50 rounded-lg overflow-hidden">
+            <div class="bg-background/50 px-6 py-4 border-b border-border/50">
+              <h3 class="text-lg font-medium text-foreground">
+                Is there a free trial for the Pro plan?
+              </h3>
+            </div>
+            <div class="px-6 py-4 text-foreground/60">
+              Yes! We offer a 7-day free trial for the Pro plan so you can test all the premium features before committing.
+            </div>
+          </div>
+
+          <div class="border border-border/50 rounded-lg overflow-hidden mt-4">
+            <div class="bg-background/50 px-6 py-4 border-b border-border/50">
+              <h3 class="text-lg font-medium text-foreground">
+                Can I cancel my subscription at any time?
+              </h3>
+            </div>
+            <div class="px-6 py-4 text-foreground/60">
+              Absolutely. You can cancel your subscription anytime from your account settings. We'll continue to provide access until the end of your billing period.
+            </div>
+          </div>
+
+          <div class="border border-border/50 rounded-lg overflow-hidden mt-4">
+            <div class="bg-background/50 px-6 py-4 border-b border-border/50">
+              <h3 class="text-lg font-medium text-foreground">
+                Do you offer refunds?
+              </h3>
+            </div>
+            <div class="px-6 py-4 text-foreground/60">
+              We offer refunds within 30 days of purchase for annual subscriptions. For monthly subscriptions, we don't offer refunds but you can cancel anytime to avoid future charges.
+            </div>
+          </div>
+        </div>
+      </section>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

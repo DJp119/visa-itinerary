@@ -1,0 +1,93 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { TravelGuide } from '@/lib/schemas/travel';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country },
+    // Similar to visa-policy, we'd normally get filters from data
+    // For static generation we'll generate common ones or rely on dynamic
+  }));
+}
+
+// Get country and travel guide data
+export async function get(props: { params: { country: string; filter?: string } }) {
+  // TODO: Fetch actual country and travel guide data from repositories
+  // For now, return mock data
+  const countryData: Country = {
+    id: props.params.country,
+    slug: props.params.country,
+    name: 'United States', // Would come from repo based on country param
+    shortName: 'USA',
+    iso2: 'US',
+    iso3: 'USA',
+    region: 'Americas',
+    capital: 'Washington, D.C.',
+    population: 331002651,
+    currencyCode: 'USD',
+    currencyName: 'US Dollar',
+    languages: ['English'],
+    coordinates: { lat: 38.8833, lng: -77.0167 },
+  };
+
+  const travelGuideData: TravelGuide = {
+    id: `${props.params.country}-travel-guide-advice`,
+    title: `Travel Advice for ${countryData.name}`,
+    description: `Essential travel advice and tips for visiting ${countryData.name}`,
+    content: `Get expert travel advice for your trip to {countryData.name}. From cultural etiquette and money-saving tips to safety recommendations and hidden gems, this advice section will help you have a better travel experience.`,
+    region: countryData.region,
+    safetyStatus: 'normal',
+    verifiedAt: '2026-06-15T00:00:00Z',
+    sourceAttribution: 'https://example.com/travel-advice'
+  };
+
+  return {
+    props: {
+      country: countryData,
+      travelGuide: travelGuideData,
+      section: 'advice',
+      filter: props.params.filter
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle=`Travel Advice for ${props.country.name}${props.params.filter ? ` - ${props.params.filter}` : ''}`}
+  pageDescription=`Essential travel advice and tips for visiting ${props.country.name}${props.params.filter ? ` (${props.params.filter})` : ''}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country.name, href: `/${props.country.slug}` },
+        { label: 'Travel Guide', href: `/${props.country.slug}/travel` },
+        { label: 'Advice', href: '' },
+        { label: props.params.filter ? `Filter: ${props.params.filter}` : '', href: props.params.filter ? '' : undefined }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Travel Advice for ${props.country.name}${props.params.filter ? ` - ${props.params.filter}` : ''}`}
+      description={`Essential travel advice and tips for visiting ${props.country.name}${props.params.filter ? ` (${props.params.filter})` : ''}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Get expert travel advice for your trip to {props.country.name}. From cultural etiquette and money-saving tips to safety recommendations and hidden gems, this advice section will help you have a better travel experience.
+        {props.params.filter && (
+          <>
+            <br />
+            <em>Currently showing advice filtered by: {props.params.filter}</em>
+          </>
+        )}
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

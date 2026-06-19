@@ -1,0 +1,74 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { Passport } from '@/lib/schemas/passport';
+
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixturePassportRepository } from '@/data/repositories/passportRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country }
+  }));
+}
+
+// Get country and passport data
+export async function get(props: { params: { country: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const passportRepo = new FixturePassportRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        passport: null
+      }
+    };
+  }
+
+  // Get passport data for this country
+  const passportData = await passportRepo.getPassportById(countryData.id);
+
+  return {
+    props: {
+      country: countryData,
+      passport: passportData
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle=`Passport: ${props.country.name}`}
+  pageDescription=`Learn about the passport power of ${props.country.name}, visa-free access, and global mobility ranking.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Passports', href: '/passport' },
+        { label: props.country.name, href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Passport: ${props.country.name}`}
+      description={`Learn about the passport power of ${props.country.name}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Discover how powerful the {props.country.name} passport is, including visa-free access,
+        global ranking, and mobility scores.
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

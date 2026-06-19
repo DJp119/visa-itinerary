@@ -1,0 +1,87 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import DirectoryCard from '@/components/directory/DirectoryCard.astro';
+
+// Mock data for visa exemptions
+export async function get() {
+  const exemptionCountries = [
+    {
+      id: 'sg',
+      name: 'Singapore',
+      shortName: 'SGP',
+      iso2: 'SG',
+      iso3: 'SGP',
+      heroImage: '/images/countries/sg/hero.jpg',
+      stats: [
+        { label: 'Visa Free', value: '127 countries' },
+        { label: 'Region', value: 'Southeast Asia' },
+        { label: 'Power Rank', value: '3rd globally' }
+      ]
+    },
+    {
+      id: 'de',
+      name: 'Germany',
+      shortName: 'DEU',
+      iso2: 'DE',
+      iso3: 'DEU',
+      heroImage: '/images/countries/de/hero.jpg',
+      stats: [
+        { label: 'Visa Free', value: '128 countries' },
+        { label: 'Region', value: 'Europe' },
+        { label: 'Power Rank', value: '2nd globally' }
+      ]
+    },
+    {
+      id: 'jp',
+      name: 'Japan',
+      shortName: 'JPN',
+      iso2: 'JP',
+      iso3: 'JPN',
+      heroImage: '/images/countries/jp/hero.jpg',
+      stats: [
+        { label: 'Visa Free', value: '143 countries' },
+        { label: 'Region', value: 'East Asia' },
+        { label: 'Power Rank', value: '1st globally' }
+      ]
+    }
+  ];
+
+  return {
+    props: {
+      exemptionCountries: exemptionCountries
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Visa Exemptions"
+  pageDescription="Discover which passports offer the most visa-free travel."
+>
+  <Container>
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Visa Exemptions
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        Discover which passports offer the greatest visa-free access to countries around the world. These are the most powerful passports for global mobility.
+      </p>
+    </section>
+
+    <div class="space-y-8">
+      {props.exemptionCountries.map((country, index) => (
+        <DirectoryCard
+          key={index}
+          title={country.name}
+          description=`Learn about visa-free access for ${country.name} passport holders`
+          image={country.heroImage}
+          stats={country.stats}
+          href={`/visa/exemptions/${country.iso2.toLowerCase()}`}
+          className="hover:shadow-lg transition-shadow duration-200"
+        />
+      ))}
+    </div>
+  </Container>
+</SiteLayout>

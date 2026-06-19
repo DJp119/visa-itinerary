@@ -1,0 +1,84 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+---
+
+<SiteLayout
+  pageTitle="Disclaimer"
+  pageDescription="Important legal disclaimer regarding visa information and travel advice"
+>
+  <Container>
+    <SectionHeader
+      title="Disclaimer"
+      description="Important legal disclaimer regarding visa information and travel advice"
+    >
+      <article class="prose lg:prose-xl mx-auto text-foreground/80">
+        <h1 class="text-3xl font-bold text-center mb-8">
+          Important Disclaimer
+        </h1>
+
+        <p class="text-lg text-foreground/60 mb-6">
+          Please read this disclaimer carefully before using Visa Itinerary.
+        </p>
+
+        <div class="bg-background/50 rounded-lg p-6 mb-8 border border-border/50">
+          <h2 class="text-xl font-bold mb-4">
+            Visa Information Disclaimer
+          </h2>
+          <p class="text-foreground/60">
+            Visa Itinerary provides visa and travel information for educational and informational purposes only.
+            While we strive to provide accurate and up-to-date information, visa requirements and regulations
+            change frequently and without notice. We do not guarantee the accuracy, completeness, or timeliness
+            of the information provided on this website.
+          </p>
+          <p class="text-foreground/60 mb-4">
+            The information provided should not be considered as official legal advice. For official visa
+            information and requirements, please consult the appropriate government embassy, consulate,
+            or immigration authority of your destination country.
+          </p>
+        </div>
+
+        <div class="bg-background/50 rounded-lg p-6 mb-8 border border-border/50">
+          <h2 class="text-xl font-bold mb-4">
+            Travel Advice Disclaimer
+          </h2>
+          <p class="text-foreground/60">
+            The travel advice, tips, and recommendations provided on Visa Itinerary are based on general
+            knowledge and experience. Travel conditions, safety situations, and local laws can change
+            rapidly. We recommend that you conduct your own research and consult with travel professionals
+            before making any travel decisions.
+          </p>
+        </div>
+
+        <div class="bg-background/50 rounded-lg p-6 mb-8 border border-border/50">
+          <h2 class="text-xl font-bold mb-4">
+            Liability Limitation
+          </h2>
+          <p class="text-foreground/60">
+            Visa Itinerary, its owners, operators, and affiliates shall not be liable for any direct,
+            indirect, incidental, consequential, or special damages arising out of or in any way connected
+            with the use of this website, or with any delay or inability to use this website, or for any
+            information obtained from this website.
+          </p>
+        </div>
+
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h2 class="text-xl font-bold mb-4">
+            External Links
+          </h2>
+          <p class="text-foreground/60">
+            Visa Itinerary may contain links to external websites that are not provided or maintained by
+            or in any way affiliated with Visa Itinerary. Please note that Visa Itinerary does not guarantee
+            the accuracy, relevance, timeliness, or completeness of any information on these external
+            websites.
+          </p>
+        </div>
+
+        <p class="text-center text-foreground/50 mt-8">
+          Last updated: June 17, 2026
+        </p>
+      </article>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

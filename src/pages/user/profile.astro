@@ -1,0 +1,141 @@
+---
+import AccountLayout from '@/layouts/AccountLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+
+// Mock user profile data
+export async function get() {
+  const userProfile = {
+    id: 'user_123',
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+    avatar: '/images/avatars/user-1.jpg',
+    passport: {
+      country: 'USA',
+      number: '*****1234',
+      expiryDate: '2028-05-15',
+      status: 'active'
+    },
+    stats: {
+      visasChecked: 24,
+      documentsGenerated: 8,
+      applicationsTracked: 3,
+      memberSince: 'Jan 2024'
+    }
+  };
+
+  return {
+    props: {
+      userProfile: userProfile
+    }
+  };
+}
+---
+
+<AccountLayout
+  pageTitle="My Profile"
+  pageDescription="View and update your personal information"
+>
+  <Container>
+    <section class="mb-8">
+      <div class="flex flex-col items-center space-y-4">
+        <div class="h-12 w-12 flex-shrink-0 flex items-center justify-center bg-primary-500/20 rounded-full">
+          </div>
+        <h2 class="text-2xl font-bold text-foreground">
+          John Doe
+        </h2>
+        <p class="text-sm text-foreground/50">
+          john.doe@example.com
+        </p>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Passport Info */}
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-lg font-semibold mb-4">
+            Passport Information
+          </h3>
+          <div class="space-y-3">
+            <div class="flex items-center">
+              <div class="h-8 w-8 flex-shrink-0 flex items-center justify-center bg-primary-500/10 text-primary-500">
+                </div>
+              <div class="ml-3">
+                <p class="font-medium text-foreground">USA Passport</p>
+                <p class="text-sm text-foreground/50">
+                  Number: *****1234 • Expires: May 15, 2028
+                </p>
+              </div>
+            </div>
+            <div class="mt-4 p-3 bg-primary-50 rounded-lg">
+              <span class="text-xs font-medium text-primary-600">
+                Active • Valid for 3+ years
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Profile Stats */}
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-lg font-semibold mb-4">
+            Your Stats
+          </h3>
+          <div class="space-y-4">
+            <div class="flex justify-between">
+              <span class="text-sm text-foreground/50">Visas Checked</span>
+              <span class="text-2xl font-bold text-foreground">{props.userProfile.stats.visasChecked}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-sm text-foreground/50">Documents Generated</span>
+              <span class="text-2xl font-bold text-foreground">{props.userProfile.stats.documentsGenerated}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-sm text-foreground/50">Applications Tracked</span>
+              <span class="text-2xl font-bold text-foreground">{props.userProfile.stats.applicationsTracked}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-sm text-foreground/50">Member Since</span>
+              <span class="text-lg font-semibold text-foreground">{props.userProfile.stats.memberSince}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Actions */}
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-lg font-semibold mb-4">
+            Quick Actions
+          </h3>
+          <div class="space-y-4">
+            <a href="/widget" class="w-full flex items-center justify-between px-4 py-3 bg-background/50 rounded-lg hover:bg-background/100 transition-colors border border-border/50">
+              <div class="flex items-center">
+                <div class="h-6 w-6 flex-shrink-0 flex items-center justify-center bg-primary-500/20 text-primary-500">
+                  </div>
+                <span class="ml-3 font-medium">
+                  Use Visa Checker
+                </span>
+              </div>
+              <span class="text-sm text-foreground/50">
+                Check requirements for any destination
+              </span>
+            </a>
+
+            <a href="/visa" class="w-full flex items-center justify-between px-4 py-3 bg-background/50 rounded-lg hover:bg-background/100 transition-colors border border-border/50">
+              <div class="flex items-center">
+                <div class="h-6 w-6 flex-shrink-0 flex items-center justify-center bg-primary-500/20 text-primary-500">
+                  </div>
+                <span class="ml-3 font-medium">
+                  Browse Visa Requirements
+                </span>
+              </div>
+              <span class="text-sm text-foreground/50">
+                Explore visa info by country
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </Container>
+</AccountLayout>

@@ -1,0 +1,64 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import DirectoryCard from '@/components/directory/DirectoryCard.astro';
+import { FixturePassportRepository } from '@/data/repositories/passportRepository';
+
+export async function get() {
+  const passportRepo = new FixturePassportRepository();
+  const passports = await passportRepo.getAllPassports();
+
+  // Transform passport data to match the format expected by DirectoryCard
+  const formattedPassports = passports.map(passport => ({
+    id: passport.id,
+    name: passport.name,
+    shortName: passport.shortName,
+    iso2: passport.iso2,
+    iso3: passport.iso3,
+    heroImage: `/images/countries/${passport.iso2.toLowerCase()}/hero.jpg`, // Assuming this path structure
+    stats: [
+      { label: 'Global Ranking', value: passport.ranking !== null ? `${passport.ranking}th` : 'N/A' },
+      { label: 'Visa Free Countries', value: passport.visaFreeCount !== null ? `${passport.visaFreeCount}` : 'N/A' },
+      { label: 'Visa on Arrival', value: passport.visaOnArrivalCount !== null ? `${passport.visaOnArrivalCount}` : 'N/A' }
+    ]
+  }));
+
+  return {
+    props: {
+      passports: formattedPassports
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Passport Index"
+  pageDescription="Explore passport power, visa-free access, and global mobility rankings."
+>
+  <Container>
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Passport Index
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        Discover how powerful your passport is, where you can travel visa-free,
+        and compare passports from around the world based on global mobility rankings.
+      </p>
+    </section>
+
+    <div class="space-y-8">
+      {props.passports.map((passport, index) => (
+        <DirectoryCard
+          key={index}
+          title={passport.name}
+          description={`Learn about the passport power of ${passport.name}`}
+          image={passport.heroImage}
+          stats={passport.stats}
+          href={`/${passport.iso2.toLowerCase()}/passport`}
+          className="hover:shadow-lg transition-shadow duration-200"
+        />
+      ))}
+    </div>
+  </Container>
+</SiteLayout>

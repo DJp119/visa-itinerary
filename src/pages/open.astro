@@ -1,0 +1,38 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import MetricStrip from '@/components/home/MetricStrip.astro';
+import { FixtureMetricsRepository } from '@/data/repositories/metricsRepository';
+
+// Fetch open metrics data
+export async function get() {
+  const metricsRepo = new FixtureMetricsRepository();
+  const metrics = await metricsRepo.getOpenMetrics();
+
+  return {
+    props: {
+      metrics: metrics
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Open Metrics"
+  pageDescription="Transparent statistics about our service usage, performance, and impact."
+>
+  <Container>
+    <section class="mb-16">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Open Metrics
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        We believe in transparency. These metrics show our real-world impact, service usage,
+        and performance statistics that are updated regularly.
+      </p>
+    </section>
+
+    <MetricStrip metrics={props.metrics} />
+  </Container>
+</SiteLayout>

@@ -1,0 +1,91 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { TravelGuide } from '@/lib/schemas/travel';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country }
+  }));
+}
+
+// Get country and travel guide data
+export async function get(props: { params: { country: string; filter?: string } }) {
+  // TODO: Fetch actual country and travel guide data from repositories
+  // For now, return mock data
+  const countryData: Country = {
+    id: props.params.country,
+    slug: props.params.country,
+    name: 'United States', // Would come from repo based on country param
+    shortName: 'USA',
+    iso2: 'US',
+    iso3: 'USA',
+    region: 'Americas',
+    capital: 'Washington, D.C.',
+    population: 331002651,
+    currencyCode: 'USD',
+    currencyName: 'US Dollar',
+    languages: ['English'],
+    coordinates: { lat: 38.8833, lng: -77.0167 },
+  };
+
+  const travelGuideData: TravelGuide = {
+    id: `${props.params.country}-travel-guide-restrictions`,
+    title: `Travel Restrictions for ${countryData.name}`,
+    description: `Current travel restrictions, entry requirements, and limitations for ${countryData.name}`,
+    content: `Understand the current travel restrictions and requirements for visiting {countryData.name}. From visa requirements and testing protocols to quarantine rules and banned items, get the information you need to plan your trip accordingly.`,
+    region: countryData.region,
+    safetyStatus: 'normal',
+    verifiedAt: '2026-06-15T00:00:00Z',
+    sourceAttribution: 'https://example.com/travel-restrictions'
+  };
+
+  return {
+    props: {
+      country: countryData,
+      travelGuide: travelGuideData,
+      section: 'restrictions',
+      filter: props.params.filter
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle=`Travel Restrictions for ${props.country.name}${props.params.filter ? ` - ${props.params.filter}` : ''}`}
+  pageDescription=`Current travel restrictions, entry requirements, and limitations for ${props.country.name}${props.params.filter ? ` (${props.params.filter})` : ''}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country.name, href: `/${props.country.slug}` },
+        { label: 'Travel Guide', href: `/${props.country.slug}/travel` },
+        { label: 'Restrictions', href: '' },
+        { label: props.params.filter ? `Filter: ${props.params.filter}` : '', href: props.params.filter ? '' : undefined }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Travel Restrictions for ${props.country.name}${props.params.filter ? ` - ${props.params.filter}` : ''}`}
+      description={`Current travel restrictions, entry requirements, and limitations for ${props.country.name}${props.params.filter ? ` (${props.params.filter})` : ''}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Understand the current travel restrictions and requirements for visiting {props.country.name}. From visa requirements and testing protocols to quarantine rules and banned items, get the information you need to plan your trip accordingly.
+        {props.params.filter && (
+          <>
+            <br />
+            <em>Currently showing restrictions filtered by: {props.params.filter}</em>
+          </>
+        )}
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

@@ -1,0 +1,74 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { HealthGuide } from '@/lib/schemas/health';
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureHealthRepository } from '@/data/repositories/healthRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country }
+  }));
+}
+
+// Get country and health guide data
+export async function get(props: { params: { country: string; filter?: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const healthRepo = new FixtureHealthRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        healthGuide: null
+      }
+    };
+  }
+
+  // Get health guide data for this country
+  const healthGuideData = await healthRepo.getHealthAdviceByCountryId(countryData.id);
+
+  return {
+    props: {
+      country: countryData,
+      healthGuide: healthGuideData
+    }
+  };
+}
+}
+---
+
+<SiteLayout
+  pageTitle=`Health Guide for ${props.country.name}`}
+  pageDescription=`Essential health information, vaccination requirements, and medical advice for travelers to ${props.country.name}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country.name, href: `/${props.country.slug}` },
+        { label: 'Health Guide', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Health Guide for ${props.country.name}`}
+      description={`Essential health information, vaccination requirements, and medical advice for travelers to ${props.country.name}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Stay healthy during your trip to {props.country.name} with our comprehensive health guide. From required vaccinations and health precautions to medical facilities and emergency information, we've got you covered.
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

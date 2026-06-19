@@ -1,0 +1,24 @@
+[
+  {
+    "id": "fr-health-advice",
+    "title": "France Health Advice",
+    "description": "Essential health information for travelers to France",
+    "content": "## Vaccinations\n- Routine vaccines: Make sure you are up-to-date on all routine vaccines before every trip\n- Hepatitis A: Recommended for most travelers\n- Hepatitis B: Recommended for travelers who might have sex with a new partner, get a tattoo or piercing, or have any medical procedures\n- Rabies: Recommended for travelers involved in outdoor and other activities in remote areas that put them at risk for bat bites\n\n## Health Risks\n- Air quality: Generally good in most areas, but can be poor in urban centers during summer\n- Water quality: Tap water is safe to drink throughout France\n- Food safety: High standards in restaurants and food establishments\n\n## Medical Facilities\n- Excellent healthcare system with modern facilities\n- Pharmacies (pharmacie) are widely available and marked with a green cross\n- Emergency number: 112 (EU-wide) or 15 (medical emergency)\n\n## Prescription Medications\n- Bring sufficient supply of any prescription medications\n- Carry medications in original packaging with prescription copy\n- Some medications available over-the-counter in Europe may require prescription in France",
+    "countryId": "fra",
+    "slug": "france-health",
+    "region": "Europe",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.diplomatie.gouv.fr"
+  },
+  {
+    "id": "jp-health-advice",
+    "title": "Japan Health Advice",
+    "description": "Essential health information for travelers to Japan",
+    "content": "## Vaccinations\n- Routine vaccines: Make sure you are up-to-date on all routine vaccines before every trip\n- Hepatitis A: Recommended for most travelers\n- Hepatitis B: Recommended for travelers who might have sex with a new partner, get a tattoo or piercing, or have any medical procedures\n- Japanese Encephalitis: Recommended for travelers spending a month or more in rural areas or those spending significant time outdoors in rural areas\n- Rabies: Recommended for travelers involved in outdoor and other activities in remote areas that put them at risk for bat bites\n\n## Health Risks\n- Air quality: Generally good in most areas\n- Water quality: Tap water is safe to drink throughout Japan\n- Food safety: Very high standards, but be cautious with raw foods\n\n## Medical Facilities\n- Excellent healthcare system with modern facilities\n- Pharmacies: Look for signs in Japanese (薬局 or kusuriya)\n- Emergency number: 119 (fire/ambulance) or 110 (police)\n\n## Prescription Medications\n- Some common medications available in other countries may be restricted or unavailable in Japan\n- Check with Japanese embassy about bringing specific medications\n- Consider bringing a detailed doctor's note for any prescription medications",
+    "countryId": "jpn",
+    "slug": "japan-health",
+    "region": "Asia",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.mofa.go.jp"
+  }
+]

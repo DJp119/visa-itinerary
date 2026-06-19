@@ -1,0 +1,87 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import DirectoryCard from '@/components/directory/DirectoryCard.astro';
+
+// Mock data for digital nomad visas
+export async function get() {
+  const nomadCountries = [
+    {
+      id: 'ee',
+      name: 'Estonia',
+      shortName: 'EST',
+      iso2: 'EE',
+      iso3: 'EST',
+      heroImage: '/images/countries/ee/hero.jpg',
+      stats: [
+        { label: 'Digital Nomad Visa', value: 'Available' },
+        { label: 'Duration', value: 'Up to 1 year' },
+        { label: 'Income Requirement', value: '€3504/month' }
+      ]
+    },
+    {
+      id: 'pt',
+      name: 'Portugal',
+      shortName: 'PRT',
+      iso2: 'PT',
+      iso3: 'PRT',
+      heroImage: '/images/countries/pt/hero.jpg',
+      stats: [
+        { label: 'Digital Nomad Visa', value: 'Available' },
+        { label: 'Duration', value: 'Up to 1 year' },
+        { label: 'Income Requirement', value: '€2820/month' }
+      ]
+    },
+    {
+      id: 'cr',
+      name: 'Costa Rica',
+      shortName: 'CRI',
+      iso2: 'CR',
+      iso3: 'CRI',
+      heroImage: '/images/countries/cr/hero.jpg',
+      stats: [
+        { label: 'Digital Nomad Visa', value: 'Available' },
+        { label: 'Duration', value: 'Up to 2 years' },
+        { label: 'Income Requirement', value: '$2500/month' }
+      ]
+    }
+  ];
+
+  return {
+    props: {
+      nomadCountries: nomadCountries
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Digital Nomad Visas"
+  pageDescription="Discover countries offering digital nomad visas for remote workers."
+>
+  <Container>
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Digital Nomad Visas
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        Explore countries that offer special visas for digital nomads and remote workers. Live and work legally from beautiful destinations around the world.
+      </p>
+    </section>
+
+    <div class="space-y-8">
+      {props.nomadCountries.map((country, index) => (
+        <DirectoryCard
+          key={index}
+          title={country.name}
+          description={`Learn about digital nomad visa requirements for ${country.name}`}
+          image={country.heroImage}
+          stats={country.stats}
+          href={`/visa/digital-nomad/${country.iso2.toLowerCase()}`}
+          className="hover:shadow-lg transition-shadow duration-200"
+        />
+      ))}
+    </div>
+  </Container>
+</SiteLayout>

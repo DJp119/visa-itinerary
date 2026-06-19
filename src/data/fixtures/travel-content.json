@@ -1,0 +1,112 @@
+[
+  {
+    "id": "fr-paris-guide",
+    "title": "Paris Travel Guide",
+    "description": "Comprehensive guide to visiting Paris, France",
+    "content": "# Paris Travel Guide\n\nParis, the City of Light, is one of the world's most visited destinations. Known for its art, fashion, gastronomy, and culture, Paris offers an unforgettable experience for every traveler.\n\n## Top Attractions\n- Eiffel Tower\n- Louvre Museum\n- Notre-Dame Cathedral\n- Champs-Élysées\n- Montmartre\n\n## Best Time to Visit\nApril to June and September to October offer mild weather and fewer crowds.",
+    "region": "Europe",
+    "safetyStatus": "normal",
+    "contentType": "guide",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://france.fr"
+  },
+  {
+    "id": "jp-tokyo-guide",
+    "title": "Tokyo Travel Guide",
+    "description": "Comprehensive guide to visiting Tokyo, Japan",
+    "content": "# Tokyo Travel Guide\n\nTokyo, Japan's bustling capital, mixes the ultramodern and the traditional, from neon-lit skyscrapers to historic temples.\n\n## Top Attractions\n- Tokyo Skytree\n- Meiji Shrine\n- Shibuya Crossing\n- Ginza Shopping District\n- Asakusa and Senso-ji Temple\n\n## Best Time to Visit\nMarch to May and September to November offer pleasant temperatures and beautiful scenery.",
+    "region": "Asia",
+    "safetyStatus": "normal",
+    "contentType": "guide",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.japan.travel"
+  },
+  {
+    "id": "fr-travel-advice",
+    "title": "France Travel Advice",
+    "description": "Essential advice for traveling to France",
+    "content": "## Language\nFrench is the official language. While many people speak English in tourist areas, learning a few basic French phrases will enhance your experience.\n\n## Currency\nThe Euro (EUR) is the official currency. Credit cards are widely accepted, but carry some cash for smaller establishments.\n\n## Transportation\nParis has an excellent public transportation system including the Metro, buses, and RER trains. Consider getting a Navigo pass for unlimited travel.\n\n## Cultural Etiquette\n- Greet shopkeepers when entering and leaving stores\n- Dress modestly when visiting religious sites\n- Tipping is not obligatory but appreciated for good service\n- Meals are leisurely affairs; don't rush through dining",
+    "region": "Europe",
+    "safetyStatus": "normal",
+    "contentType": "advice",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.diplomatie.gouv.fr"
+  },
+  {
+    "id": "jp-travel-advice",
+    "title": "Japan Travel Advice",
+    "description": "Essential advice for traveling to Japan",
+    "content": "## Language\nJapanese is the official language. English signage is common in major cities and tourist areas.\n\n## Currency\nThe Japanese Yen (JPY) is the official currency. While credit cards are accepted in many places, cash is still king in Japan.\n\n## Transportation\nJapan has an extensive and efficient rail network. Consider getting a Japan Rail Pass if planning to travel between cities.\n\n## Cultural Etiquette\n- Remove shoes when entering homes and some traditional establishments\n- Bowing is a common form of greeting\n- Speaking loudly in public is considered rude\n- Tipping is not customary and can be seen as insulting",
+    "region": "Asia",
+    "safetyStatus": "normal",
+    "contentType": "advice",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.mofa.go.jp"
+  },
+  {
+    "id": "fr-safety-alert",
+    "title": "Petty Crime Warning in Paris",
+    "description": "Increased reports of pickpocketing and scams targeting tourists in Paris",
+    "content": "## Safety Alert: Petty Crime in Paris\n\nThere have been increased reports of pickpocketing, bag snatching, and scams targeting tourists in Paris, particularly around major attractions and public transportation hubs.\n\n## Areas of Concern\n- Eiffel Tower area\n- Louvre Museum surroundings\n- Metro lines 1, 4, and 12\n- Gare du Nord and Gare de Lyon train stations\n- Champs-Élysées and surrounding streets\n\n## Recommendations\n- Keep valuables secure and out of sight\n- Use anti-theft bags or money belts\n- Be vigilant in crowded areas\n- Avoid displaying expensive jewelry or electronics\n- Use official taxi services\n- Stay aware of your surroundings at all times",
+    "region": "Europe",
+    "safetyStatus": "stay-alert",
+    "contentType": "alert",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.gouvernement.fr"
+  },
+  {
+    "id": "jp-weather-alert",
+    "title": "Typhoon Season Advisory",
+    "description": "Important weather information for travelers to Japan during typhoon season",
+    "content": "## Weather Advisory: Typhoon Season in Japan\n\nTyphoon season in Japan typically runs from May to October, with peak activity between August and September. Travelers should be prepared for potential disruptions.\n\n## Potential Impacts\n- Flight cancellations and delays\n- Train service suspensions\n- Temporary closures of attractions\n- Heavy rainfall and strong winds\n\n## Recommendations\n- Monitor weather forecasts regularly\n- Purchase travel insurance that covers weather-related disruptions\n- Have flexible travel plans\n- Follow instructions from local authorities\n- Know your hotel's emergency procedures",
+    "region": "Asia",
+    "safetyStatus": "stay-alert",
+    "contentType": "alert",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.jma.go.jp"
+  },
+  {
+    "id": "fr-open-status",
+    "title": "France Entry Status",
+    "description": "Current entry requirements and restrictions for France",
+    "content": "## France Entry Status - Open\n\nFrance is currently open to international travelers with certain requirements in place.\n\n## Entry Requirements\n- Vaccination: Proof of full vaccination with an EU-accepted vaccine\n- Testing: Negative PCR or antigen test taken within 72 hours before departure\n- Forms: Completed travel certificate\n\n## Health Measures\n- Mask wearing recommended in crowded indoor spaces\n- Health pass required for access to venues like restaurants, museums, and theaters\n\n## Transportation\n- International flights operating with reduced capacity\n- Domestic train service at normal levels\n- Public transportation in major cities operating normally",
+    "region": "Europe",
+    "safetyStatus": "normal",
+    "contentType": "open",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.gouvernement.fr"
+  },
+  {
+    "id": "jp-open-status",
+    "title": "Japan Entry Status",
+    "description": "Current entry requirements and restrictions for Japan",
+    "content": "## Japan Entry Status - Partially Open\n\nJapan has begun reopening to international travelers with a phased approach.\n\n## Entry Requirements\n- Vaccination: Proof of full vaccination with WHO-approved vaccine\n- Testing: Negative PCR test taken within 72 hours before departure\n- Quarantine: 3-day quarantine at designated facility followed by 4-day self-isolation\n- Sponsorship: Required from Japanese resident or organization\n\n## Health Measures\n- Mask wearing required in public transportation and indoor public spaces\n- Health monitoring app required during stay\n\n## Transportation\n- Limited international flights available\n- Domestic transportation operating with capacity restrictions",
+    "region": "Asia",
+    "safetyStatus": "stay-alert",
+    "contentType": "open",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.mofa.go.jp"
+  },
+  {
+    "id": "fr-covid-restrictions",
+    "title": "COVID-19 Related Restrictions in France",
+    "description": "Current COVID-19 related restrictions and requirements in France",
+    "content": "## COVID-19 Restrictions in France\n\nFrance has implemented various measures to control the spread of COVID-19.\n\n## Current Restrictions\n- Health Pass: Required for access to bars, restaurants, museums, cinemas, and long-distance trains\n- Mask Mandate: Required in all indoor public spaces and on public transportation\n- Gathering Limits: Private gatherings limited to 6 people indoors\n- Curfew: No current nationwide curfew\n\n## Entry Restrictions\n- Travelers from certain countries may face additional testing or quarantine requirements\n- All travelers must provide contact information for contact tracing\n\n## Exemptions\n- Children under 12 are exempt from health pass requirements\n- Medical exemptions available with proper documentation",
+    "region": "Europe",
+    "safetyStatus": "stay-alert",
+    "contentType": "restriction",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.gouvernement.fr"
+  },
+  {
+    "id": "jp-entry-restrictions",
+    "title": "Japan Entry Restrictions",
+    "description": "Current entry restrictions and requirements for Japan",
+    "content": "## Japan Entry Restrictions\n\nJapan maintains specific entry restrictions to control infectious diseases.\n\n## Vaccination Requirements\n- Proof of full vaccination with WHO-approved vaccine required\n- Booster shots recommended for eligible travelers\n\n## Testing Requirements\n- Negative PCR test taken within 72 hours before departure required\n- Additional testing upon arrival may be required\n\n## Quarantine Requirements\n- 3-day quarantine at government-designated facility\n- Followed by 4-day self-isolation at accommodation\n- Movement restricted during quarantine period\n\n## Country-Specific Restrictions\n- Travelers from certain countries may face extended quarantine or entry denial\n- Check with Japanese embassy in your country for latest requirements",
+    "region": "Asia",
+    "safetyStatus": "stay-alert",
+    "contentType": "restriction",
+    "verifiedAt": "2026-06-15T00:00:00Z",
+    "sourceAttribution": "https://www.mofa.go.jp"
+  }
+]

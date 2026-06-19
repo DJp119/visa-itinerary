@@ -1,0 +1,90 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { TravelOpenStatus } from '@/lib/schemas/travel';
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureTravelRepository } from '@/data/repositories/travelRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country }
+  }));
+}
+
+// Get country and travel open status data
+export async function get(props: { params: { country: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const travelRepo = new FixtureTravelRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        travelOpenStatus: null
+      }
+    };
+  }
+
+  // Get travel open status data for this country
+  const travelOpenStatusData = await travelRepo.getTravelOpenStatusByCountryId(countryData.id);
+
+  return {
+    props: {
+      country: countryData,
+      travelOpenStatus: travelOpenStatusData
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle={`Travel Status for ${props.country?.name}`}
+  pageDescription=`Current travel openness status for ${props.country?.name}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country?.name || 'Country', href: `/${props.country?.slug}` },
+        { label: 'Travel Guide', href: `/${props.country?.slug}/travel` },
+        { label: 'Travel Status', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Travel Status for ${props.country?.name}`}
+      description={`Current border openness and travel restrictions for ${props.country?.name}`}
+    >
+      {props.travelOpenStatus && (
+        <>
+          <p class="text-lg text-foreground/60 mb-8">
+            {props.travelOpenStatus.description}
+          </p>
+
+          {props.travelOpenStatus.content && (
+            <div class="prose prose-lg max-w-none">
+              {props.travelOpenStatus.content}
+            </div>
+          )}
+        </>
+      )}
+
+      {!props.travelOpenStatus && (
+        <p class="text-lg text-foreground/60 mb-8">
+          Travel status information for {props.country?.name} is not available.
+        </p>
+      )}
+    </SectionHeader>
+  </Container>
+</SiteLayout>

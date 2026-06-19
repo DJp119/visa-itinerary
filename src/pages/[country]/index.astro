@@ -1,0 +1,135 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths();
+}
+
+// Get country data from repository
+export async function get(props: { params: { country: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    // Redirect to 404 or return null props - for now we'll return empty data
+    // In a full implementation, we'd handle this better
+    return {
+      props: {
+        country: null
+      }
+    };
+  }
+
+  return {
+    props: {
+      country: countryData
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle={`${props.country.name} Travel Guide`}
+  pageDescription=`Explore visa requirements, travel information, and essential tips for ${props.country.name}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' }, // In a real implementation, this would link to a countries page
+        { label: props.country.name, href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={props.country.name}
+      description={`Essential information for traveling to ${props.country.name}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Find visa requirements, travel advice, and essential information for your trip to
+        {props.country.name}.
+      </p>
+
+      {/* Quick links to common sections */}
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+        <a href={`/${props.country.slug}/tourist`} class="group block p-4 bg-background/50 rounded-lg hover:bg-background/100 transition-colors border border-border/50">
+          <div class="flex items-center justify-start mb-2">
+            <div class="h-8 w-8 flex-shrink-0 flex items-center justify-center bg-primary-500/10 text-primary-500">
+              🛂
+            </div>
+            <span class="ml-3 text-sm font-medium text-foreground group-hover:text-primary-500 transition-colors">
+              Tourist Visas
+            </span>
+          </div>
+        </a>
+
+        <a href={`/${props.country.slug}/transit`} class="group block p-4 bg-background/50 rounded-lg hover:bg-background/100 transition-colors border border-border/50">
+          <div class="flex items-center justify-start mb-2">
+            <div class="h-8 w-8 flex-shrink-0 flex items-center justify-center bg-primary-500/10 text-primary-500">
+              🔄
+            </div>
+            <span class="ml-3 text-sm font-medium text-foreground group-hover:text-primary-500 transition-colors">
+              Transit Visas
+            </span>
+          </div>
+        </a>
+
+        <a href={`/${props.country.slug}/digital-nomad`} class="group block p-4 bg-background/50 rounded-lg hover:bg-background/100 transition-colors border border-border/50">
+          <div class="flex items-center justify-start mb-2">
+            <div class="h-8 w-8 flex-shrink-0 flex items-center justify-center bg-primary-500/10 text-primary-500">
+              👨‍💻
+            </div>
+            <span class="ml-3 text-sm font-medium text-foreground group-hover:text-primary-500 transition-colors">
+              Digital Nomad
+            </span>
+          </div>
+        </a>
+
+        <a href={`/${props.country.slug}/visa`} class="group block p-4 bg-background/50 rounded-lg hover:bg-background/100 transition-colors border border-border/50">
+          <div class="flex items-center justify-start mb-2">
+            <div class="h-8 w-8 flex-shrink-0 flex items-center justify-center bg-primary-500/10 text-primary-500">
+              📄
+            </div>
+            <span class="ml-3 text-sm font-medium text-foreground group-hover:text-primary-500 transition-colors">
+              Visa Guide
+            </span>
+          </div>
+        </a>
+      </div>
+    </SectionHeader>
+
+    {/* Country details would go here in a full implementation */}
+    <div class="space-y-8">
+      <h2 class="text-2xl font-bold text-foreground">Country Information</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 text-sm text-foreground/60">
+        <div>
+          <span class="font-medium">Capital:</span> <span class="ml-2">{props.country.capital}</span>
+        </div>
+        <div>
+          <span class="font-medium">Population:</span> <span class="ml-2">{props.country.population.toLocaleString()}</span>
+        </div>
+        <div>
+          <span class="font-medium">Region:</span> <span class="ml-2">{props.country.region}</span>
+        </div>
+        <div>
+          <span class="font-medium">Currency:</span> <span class="ml-2">{props.country.currencyName} ({props.country.currencyCode})</span>
+        </div>
+        <div>
+          <span class="font-medium">Languages:</span> <span class="ml-2">{props.country.languages.join(', ')}</span>
+        </div>
+        <div>
+          <span class="font-medium">Timezone:</span> <span class="ml-2">UTC{(props.country.coordinates.lng < 0 ? '' : '+')}{Math.floor(props.country.coordinates.lng / 15)}</span>
+        </div>
+      </div>
+    </div>
+  </Container>
+</SiteLayout>

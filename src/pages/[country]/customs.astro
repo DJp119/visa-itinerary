@@ -1,0 +1,72 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { CustomsGuide } from '@/lib/schemas/customs';
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureCustomsRepository } from '@/data/repositories/customsRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country }
+  }));
+}
+
+// Get country and customs guide data
+export async function get(props: { params: { country: string; filter?: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const customsRepo = new FixtureCustomsRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        customsGuide: null
+      }
+    };
+  }
+
+  // Get customs guide data for this country
+  const customsGuideData = await customsRepo.getCustomsRegulationByCountryId(countryData.id);
+
+  return {
+    props: {
+      country: countryData,
+      customsGuide: customsGuideData
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle=`Customs Guide for ${props.country.name}`}
+  pageDescription=`Essential customs information, import/export regulations, and prohibited items for ${props.country.name}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country.name, href: `/${props.country.slug}` },
+        { label: 'Customs Guide', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Customs Guide for ${props.country.name}`}
+      description={`Essential customs information, import/export regulations, and prohibited items for ${props.country.name}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Learn everything you need to know about customs regulations when visiting {props.country.name}. From duty-free allowances and prohibited items to declaration procedures and restricted goods, this comprehensive guide will help you navigate customs smoothly.
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

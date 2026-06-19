@@ -1,0 +1,117 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { TravelAlert } from '@/lib/schemas/travel';
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureTravelRepository } from '@/data/repositories/travelRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: {
+      country: path.params.country,
+      filter: path.params.filter  // This would be things like 'health', 'safety', 'weather', 'security', etc.
+    }
+  }));
+}
+
+// Get country and filtered travel alert data
+export async function get(props: { params: { country: string; filter: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const travelRepo = new FixtureTravelRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        travelAlerts: [],
+        filter: props.params.filter
+      }
+    };
+  }
+
+  // Get all travel alerts for this country
+  const allAlerts = await travelRepo.getTravelAlertByCountryId(countryData.id);
+
+  // Filter by the specified filter parameter
+  const filteredAlerts = allAlerts.filter(alert =>
+    alert.title.toLowerCase().includes(props.params.filter.toLowerCase()) ||
+    alert.description.toLowerCase().includes(props.params.filter.toLowerCase()) ||
+    alert.content.toLowerCase().includes(props.params.filter.toLowerCase())
+  );
+
+  return {
+    props: {
+      country: countryData,
+      travelAlerts: filteredAlerts,
+      filter: props.params.filter
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle={`Travel Alerts for ${props.country?.name} - ${props.filter}`}
+  pageDescription=`Filtered travel alerts for ${props.country?.name} related to ${props.filter}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country?.name || 'Country', href: `/${props.country?.slug}` },
+        { label: 'Travel Guide', href: `/${props.country?.slug}/travel` },
+        { label: 'Travel Alerts', href: `/${props.country?.slug}/travel/alert` },
+        { label: props.filter, href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Travel Alerts for ${props.country?.name} - ${props.filter}`}
+      description={`Travel alerts related to ${props.filter} for ${props.country?.name}`}
+    >
+      {props.travelAlerts && props.travelAlerts.length > 0 ? (
+        <>
+          <p class="text-lg text-foreground/60 mb-8">
+            Found {props.travelAlerts.length} travel alerts related to "{props.filter}".
+          </p>
+
+          <div class="space-y-6">
+            {props.travelAlerts.map((alert, index) => (
+              <div key={index} class="border border-border/50 rounded-lg p-6 bg-background/50">
+                <div class="mb-3">
+                  <h3 class="text-lg font-semibold text-foreground">
+                    {alert.title}
+                  </h3>
+                  <p class="text-sm text-foreground/50">
+                    {alert.description}
+                  </p>
+                </div>
+
+                {alert.content && (
+                  <div class="prose prose-lg max-w-none">
+                    {alert.content}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </>
+      ) : (
+        <div class="text-center py-8">
+          <p class="text-lg text-foreground/50">
+            No travel alerts found for {props.country?.name} related to "{props.filter}".
+          </p>
+        </div>
+      )}
+    </SectionHeader>
+  </Container>
+</SiteLayout>

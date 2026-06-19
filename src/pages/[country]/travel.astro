@@ -1,0 +1,74 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { TravelGuide } from '@/lib/schemas/travel';
+
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureTravelRepository } from '@/data/repositories/travelRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country }
+  }));
+}
+
+// Get country and travel guide data
+export async function get(props: { params: { country: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const travelRepo = new FixtureTravelRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        travelGuide: null
+      }
+    };
+  }
+
+  // Get travel guide data for this country
+  const travelGuideData = await travelRepo.getTravelGuideByCountryId(countryData.id);
+
+  return {
+    props: {
+      country: countryData,
+      travelGuide: travelGuideData
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle=`Travel Guide to ${props.country.name}`}
+  pageDescription=`Essential travel information, tips, and recommendations for visiting ${props.country.name}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country.name, href: `/${props.country.slug}` },
+        { label: 'Travel Guide', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Travel Guide to ${props.country.name}`}
+      description={`Essential travel information, tips, and recommendations for visiting ${props.country.name}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Discover everything you need to know for an unforgettable trip to {props.country.name}. From must-see attractions and hidden gems to practical tips on transportation, accommodation, and local customs, this comprehensive guide will help you plan the perfect visit.
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>

@@ -1,0 +1,73 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import SearchHero from '@/components/home/SearchHero.astro';
+import MetricStrip from '@/components/home/MetricStrip.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+---
+<SiteLayout
+  pageTitle="Home"
+  pageDescription="Discover visa requirements and travel information for destinations worldwide."
+  image="/og-image.jpg"
+>
+  <SearchHero />
+
+  <Container>
+    <SectionHeader title="Explore by Category" description="Start your journey by exploring our main categories">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <a href="/visa" class="group block p-6 bg-background/50 rounded-lg hover:bg-background/100 transition-colors border border-border/50">
+          <div class="flex items-center justify-start mb-4">
+            <div class="h-10 w-10 flex-shrink-0 flex items-center justify-center bg-primary-500/10 text-primary-500">
+              🛂
+            </div>
+            <h3 class="text-lg font-semibold ml-3 text-foreground group-hover:text-primary-500 transition-colors">
+              Visas
+            </h3>
+          </div>
+          <p class="text-sm text-foreground/60 line-clamp-3">
+            Find visa requirements for every country based on your passport.
+          </p>
+        </a>
+
+        <a href="/passport" class="group block p-6 bg-background/50 rounded-lg hover:bg-background/100 transition-colors border border-border/50">
+          <div class="flex items-center justify-start mb-4">
+            <div class="h-10 w-10 flex-shrink-0 flex items-center justify-center bg-primary-500/10 text-primary-500">
+              📘
+            </div>
+            <h3 class="text-lg font-semibold ml-3 text-foreground group-hover:text-primary-500 transition-colors">
+              Passports
+            </h3>
+          </div>
+          <p class="text-sm text-foreground/60 line-clamp-3">
+            Learn about passport power, visa-free access, and global mobility.
+          </p>
+        </a>
+
+        <a href="/travel" class="group block p-6 bg-background/50 rounded-lg hover:bg-background/100 transition-colors border border-border/50">
+          <div class="flex items-center justify-start mb-4">
+            <div class="h-10 w-10 flex-shrink-0 flex items-center justify-center bg-primary-500/10 text-primary-500">
+              🌍
+            </div>
+            <h3 class="text-lg font-semibold ml-3 text-foreground group-hover:text-primary-500 transition-colors">
+              Travel
+            </h3>
+          </div>
+          <p class="text-sm text-foreground/60 line-clamp-3">
+            Get travel advice, safety information, and essential tips for your destination.
+          </p>
+        </a>
+      </div>
+    </SectionHeader>
+  </Container>
+
+  <Container>
+    <MetricStrip
+      metrics={[
+        { label: 'Countries Covered', value: '195', icon: '🌐' },
+        { label: 'Visa Requirements', value: '10,000+', icon: '📋' },
+        { label: 'Travel Guides', value: '500+', icon: '📚' },
+        { label: 'Monthly Users', value: '150K+', icon: '👥' }
+      ]}
+    />
+  </Container>
+</SiteLayout>

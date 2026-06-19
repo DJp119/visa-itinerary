@@ -1,0 +1,78 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import DirectoryCard from '@/components/directory/DirectoryCard.astro';
+
+// Mock data for travel information
+export async function get() {
+  const infoTopics = [
+    {
+      id: 'currency',
+      name: 'Currency Exchange',
+      description: 'Learn about foreign exchange rates, best practices for exchanging money, and avoiding fees',
+      icon: '💱',
+      stats: [
+        { label: 'Topic', value: 'Finance' },
+        { label: 'Difficulty', value: 'Beginner' }
+      ]
+    },
+    {
+      id: 'transportation',
+      name: 'Local Transportation',
+      description: 'Guide to navigating public transport, taxis, rideshares, and rental cars in foreign cities',
+      icon: '🚇',
+      stats: [
+        { label: 'Topic', value: 'Getting Around' },
+        { label: 'Difficulty', value: 'Beginner' }
+      ]
+    },
+    {
+      id: 'communication',
+      name: 'Staying Connected Abroad',
+      description: 'Tips for mobile phone use, internet access, and staying in touch while traveling internationally',
+      icon: '📱',
+      stats: [
+        { label: 'Topic', value: 'Technology' },
+        { label: 'Difficulty', value: 'Beginner' }
+      ]
+    }
+  ];
+
+  return {
+    props: {
+      infoTopics: infoTopics
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Travel Information"
+  pageDescription="Essential information for international travelers"
+>
+  <Container>
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Travel Information
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        Practical information to help you prepare for and navigate international travel. From currency exchange to local customs, find the essential knowledge you need for a smooth trip.
+      </p>
+    </section>
+
+    <div class="space-y-8">
+      {props.infoTopics.map((topic, index) => (
+        <DirectoryCard
+          key={index}
+          title={topic.name}
+          description={topic.description}
+          image={`/images/travel/${topic.id}.jpg`}
+          stats={topic.stats}
+          href={`/travel/information/${topic.id}`}
+          className="hover:shadow-lg transition-shadow duration-200"
+        />
+      ))}
+    </div>
+  </Container>
+</SiteLayout>

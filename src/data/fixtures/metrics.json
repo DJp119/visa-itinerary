@@ -1,0 +1,10 @@
+[
+  { "label": "Users Served", "value": "2.4M+", "icon": "👥" },
+  { "label": "Visa Queries Processed", "value": "18M+", "icon": "🔍" },
+  { "label": "Documents Generated", "value": "560K+", "icon": "📄" },
+  { "label": "Applications Tracked", "value": "120K+", "icon": "📋" },
+  { "label": "Countries Covered", "value": "195", "icon": "🌐" },
+  { "label": "Avg. Response Time", "value": "1.2s", "icon": "⚡" },
+  { "label": "Data Accuracy", "value": "99.8%", "icon": "🎯" },
+  { "label": "User Satisfaction", "value": "4.8/5", "icon": "😊" }
+]

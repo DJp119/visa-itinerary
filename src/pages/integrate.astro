@@ -1,0 +1,185 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+
+// Mock data for integrate page
+export async function get() {
+  return {
+    props: {}
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Integrate with Visa Itinerary"
+  pageDescription="Access our API, widgets, and tools to bring visa information to your platform."
+>
+  <Container>
+    <section class="mb-16">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Integrate with Visa Itinerary
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        Bring visa information to your website, app, or service with our developer-friendly tools.
+        Access our API, embeddable widgets, and data feeds to enhance your platform.
+      </p>
+    </section>
+
+    <section class="space-y-12">
+      <div class="grid gap-8 sm:grid-cols-1 lg:grid-cols-3">
+        {/* API Section */}
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-xl font-bold mb-4 flex items-center">
+            <span class="mr-3 h-8 w-8 flex items-center justify-center bg-primary-500/10 text-primary-500">
+              </span>
+            API Access
+          </h3>
+          <p class="text-foreground/60 mb-4">
+            Access our comprehensive visa and travel data through a RESTful API. Get real-time
+            visa requirements, passport information, and travel advisories.
+          </p>
+          <a href="/docs/api" class="bg-primary-500 text-primary-foreground px-4 py-2 rounded-md text-sm hover:bg-primary-600 transition-colors inline-block">
+            View API Documentation
+          </a>
+        </div>
+
+        {/* Widget Section */}
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-xl font-bold mb-4 flex items-center">
+            <span class="mr-3 h-8 w-8 flex items-center justify-center bg-primary-500/10 text-primary-500">
+              </span>
+            Embeddable Widgets
+          </h3>
+          <p class="text-foreground/60 mb-4">
+            Add visa lookup functionality to your website with our customizable widgets.
+            Choose from visa checkers, passport lookups, and travel advisors.
+          </p>
+          <a href="/widget" class="bg-primary-500 text-primary-foreground px-4 py-2 rounded-md text-sm hover:bg-primary-600 transition-colors inline-block">
+            Try Our Widgets
+          </a>
+        </div>
+
+        {/* Widget Builder Section */}
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-xl font-bold mb-4 flex items-center">
+            <span class="mr-3 h-8 w-8 flex items-center justify-center bg-primary-500/10 text-primary-500">
+              </span>
+            Widget Builder
+          </h3>
+          <p class="text-foreground/60 mb-4">
+            Use our interactive widget builder to create custom visa checkers tailored to your
+            needs. Preview, configure, and generate embed code in real-time.
+          </p>
+          <a href="/widget" class="bg-primary-500 text-primary-foreground px-4 py-2 rounded-md text-sm hover:bg-primary-600 transition-colors inline-block">
+            Try Widget Builder
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-16">
+      <h2 class="text-3xl font-bold text-center mb-8">
+        Embeddable Visa Checker
+      </h2>
+      <div class="bg-background/50 rounded-lg p-8 border border-border/50">
+        <div class="space-y-6">
+          <h3 class="text-xl font-bold text-center mb-4">
+            Add Visa Checking to Your Website
+          </h3>
+          <p class="text-lg text-center max-w-2xl mx-auto text-foreground/60">
+            Embed our visa checker widget on your website to let visitors instantly check visa requirements for any destination.
+          </p>
+
+          <div class="grid gap-6 sm:grid-cols-2">
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold mb-2">
+                Simple Integration
+              </h3>
+              <ol class="space-y-2 text-foreground/60 list-decimal pl-5">
+                <li>Add the widget container element to your HTML</li>
+                <li>Include our loader script</li>
+                <li>Customize with data attributes (optional)</li>
+                <li>Start helping your visitors!</li>
+              </ol>
+            </div>
+
+            <div class="space-y-4">
+              <h3 class="text-lg font-semibold mb-2">
+                Customization Options
+              </h3>
+              <ul class="space-y-2 text-foreground/60 list-disc pl-5">
+                <li>data-default-origin - Set default origin country (e.g., "USA")</li>
+                <li>data-default-destination - Set default destination country (e.g., "CAN")</li>
+                <li>data-theme - Choose "light" or "dark" theme</li>
+                <li>data-primary-color - Set custom primary color (e.g., "#ff0000")</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <h3 class="text-lg font-semibold mb-4">
+              Example Implementation
+            </h3>
+            <div class="bg-background/80/50 rounded-lg p-6 border border-border/50 font-mono text-sm">
+              &lt;!-- Visa Itinerary Widget --&gt;
+              &lt;div class="visaitinerary-widget"
+                   data-widget-type="visa-checker"
+                   data-default-origin="USA"
+                   data-default-destination="CAN"
+                   data-theme="light"
+                   data-primary-color="#0c66e4"&gt;&lt;/div&gt;
+              &lt;script src="https://widget.visaitinerary.example.com/loader.js" defer&gt;&lt;/script&gt;
+            </div>
+            <button class="mt-4 w-full bg-primary-500 text-primary-foreground px-4 py-2 rounded-md hover:bg-primary-600 transition-colors"
+                    onclick="navigator.clipboard.writeText(this.parentElement.parentElement.querySelector('code').innerText).then(() => alert('Embed code copied to clipboard!'));">
+              Copy Example Code
+            </button>
+          </div>
+        </div>
+      </section>
+
+    <section class="mt-16">
+      <h2 class="text-3xl font-bold text-center mb-8">
+        Developer Resources
+      </h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-lg font-semibold mb-4">
+            API Endpoints
+          </h3>
+          <ul class="space-y-2 text-foreground/60 list-disc pl-5">
+            <li>GET /api/visa-requirements</li>
+            <li>GET /api/passport-info</li>
+            <li>GET /api/country-details</li>
+            <li>GET /api/travel-advice</li>
+          </ul>
+        </div>
+
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-lg font-semibold mb-4">
+            Widget Types
+          </h3>
+          <ul class="space-y-2 text-foreground/60 list-disc pl-5">
+            <li>Visa Checker</li>
+            <li>Passport Lookup</li>
+            <li>Travel Advisor</li>
+            <li>Currency Converter</li>
+          </ul>
+        </div>
+
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-lg font-semibold mb-4">
+            Support
+          </h3>
+          <ul class="space-y-2 text-foreground/60 list-disc pl-5">
+            <li>Developer Documentation</li>
+            <li>API Reference</li>
+            <li>Code Examples</li>
+            <li>Technical Support</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </Container>
+</SiteLayout>

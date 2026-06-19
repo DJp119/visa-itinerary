@@ -1,0 +1,69 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+
+// Mock data for visa policies
+export async function get() {
+  return {
+    props: {}
+  };
+}
+---
+
+<SiteLayout
+  pageTitle="Visa Policies by Country"
+  pageDescription="Explore visa policies and immigration regulations by country."
+>
+  <Container>
+    <section class="mb-12">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        Visa Policies by Country
+      </h1>
+      <p class="text-lg text-center max-w-3xl mx-auto text-foreground/60">
+        Explore detailed visa policies, immigration regulations, and entry requirements for countries around the world. Understand the rules that govern international travel.
+      </p>
+    </section>
+
+    <section class="space-y-8">
+      <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+        <h3 class="text-xl font-bold mb-4">
+          Understanding Visa Policies
+        </h3>
+        <p class="text-foreground/60">
+          Visa policies vary significantly between countries and are influenced by diplomatic relations, security concerns, economic factors, and immigration laws. This section helps you understand the different types of visa policies you might encounter.
+        </p>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-lg font-semibold mb-3">
+            Common Visa Policy Types
+          </h3>
+          <ul class="space-y-2 text-foreground/60 list-disc pl-5">
+            <li>Visa-free entry</li>
+            <li>Visa on arrival</li>
+            <li>Electronic visa (e-Visa)</li>
+            <li>Sticker visa (traditional)</li>
+            <li>Electronic travel authorization (ETA)</li>
+            <li>Visitor permits</li>
+          </ul>
+        </div>
+
+        <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+          <h3 class="text-lg font-semibold mb-3">
+            Factors Affecting Visa Policies
+          </h3>
+          <ul class="space-y-2 text-foreground/60 list-disc pl-5">
+            <li>Diplomatic relationships</li>
+            <li>Security considerations</li>
+            <li>Economic agreements</li>
+            <li>Tourism strategies</li>
+            <li>Reciprocity principles</li>
+            <li>Health concerns</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </Container>
+</SiteLayout>

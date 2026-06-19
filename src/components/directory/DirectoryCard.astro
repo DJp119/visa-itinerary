@@ -1,0 +1,42 @@
+---
+const {
+  title,
+  description,
+  image,
+  stats,
+  href,
+  className
+} = Astro.props;
+// stats should be an array of { label: string, value: string }
+---
+<a href={href} class={`block hover:shadow-lg transition-shadow duration-200 ${className}`}>
+  <div class="space-y-4">
+    {image && (
+      <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200">
+        <img
+          src={image}
+          alt={title}
+          class="h-full w-full object-cover object-center hover:scale-105 transition-transform duration-300"
+        />
+      </div>
+    )}
+    <div>
+      <h3 class="text-lg font-semibold text-foreground">{title}</h3>
+      {description && (
+        <p class="text-sm text-foreground/60 line-clamp-2">{description}</p>
+      )}
+      {stats && stats.length > 0 && (
+        <div class="mt-2 flex flex-wrap gap-4 text-xs text-foreground/50">
+          {stats.map((stat, index) => (
+            <Fragment key={index}>
+              <span class="flex items-center">
+                <span class="mr-1">{stat.label}:</span>
+                <span class="ml-1">{stat.value}</span>
+              </span>
+            </Fragment>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</a>

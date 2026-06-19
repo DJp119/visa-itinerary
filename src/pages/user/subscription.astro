@@ -1,0 +1,227 @@
+---
+import AccountLayout from '@/layouts/AccountLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+
+// Mock subscription data
+export async function get() {
+  const subscriptionData = {
+    plan: {
+      name: 'Pro Plan',
+      price: 9.99,
+      interval: 'monthly',
+      features: [
+        'Unlimited visa checks',
+        'Document generation',
+        'Priority email support',
+        'Application tracker',
+        'AI travel assistant'
+      ],
+      popular: true
+    },
+    billing: {
+      nextPayment: '2026-07-15',
+      paymentMethod: 'Visa •••• 4242',
+      paymentHistory: [
+        { date: '2026-06-15', amount: 9.99, status: 'success' },
+        { date: '2026-05-15', amount: 9.99, status: 'success' },
+        { date: '2026-04-15', amount: 9.99, status: 'success' }
+      ]
+    },
+    usage: {
+      currentPeriod: {
+        visaChecks: { used: 142, limit: 'unlimited', percent: 100 },
+        documents: { used: 5, limit: 'unlimited', percent: 100 },
+        apiCalls: { used: 850, limit: 10000, percent: 8.5 }
+      }
+    }
+  };
+
+  return {
+    props: {
+      subscription: subscriptionData
+    }
+  };
+}
+---
+
+<AccountLayout
+  pageTitle="My Subscription"
+  pageDescription="Manage your subscription and billing information"
+>
+  <Container>
+    <section class="mb-8">
+      <div class="space-y-4">
+        <div class="flex items-center mb-4">
+          <h2 class="text-2xl font-bold text-foreground">
+            Subscription Overview
+          </h2>
+          <span class="ml-3 px-3 py-1 rounded-full text-xs font-medium bg-primary-500/20 text-primary-500">
+            Pro Plan
+          </span>
+        </div>
+        <p class="text-sm text-foreground/50">
+          Next payment: July 15, 2026 • {$props.subscription.price.toFixed(2)}/{props.subscription.interval}
+        </p>
+      </div>
+    </section>
+
+    <section class="space-y-6">
+      {/* Plan Details */}
+      <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+        <h3 class="text-lg font-semibold mb-4">
+          Your Plan
+        </h3>
+        <div class="space-y-4">
+          <div class="flex items-center mb-3">
+            <div class="h-8 w-8 flex-shrink-0 flex items-center justify-center bg-primary-500/20 text-primary-500">
+              </div>
+            <div class="ml-3">
+              <h4 class="font-semibold text-foreground">
+                {props.subscription.plan.name}
+              </h4>
+              <p class="text-sm text-foreground/50">
+                {props.subscription.plan.popular ? 'Most Popular' : ''}
+              </p>
+            </div>
+          </div>
+          <p class="text-lg font-bold mb-3">
+            ${props.subscription.plan.price.toFixed(2)}/{
+              props.subscription.plan.interval === 'monthly' ? 'mo' : 'yr'
+            }
+          </p>
+          <ul class="space-y-2 text-foreground/60 list-disc pl-5">
+            {props.subscription.plan.features.map((feature, index) => (
+              <li key={index}>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* Usage */}
+      <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+        <h3 class="text-lg font-semibold mb-4">
+          Usage This Period
+        </h3>
+        <div class="space-y-4">
+          <div class="space-y-3">
+            <div class="flex">
+              <span class="font-medium">Visa Checks</span>
+              <span class="ml-auto font-medium">
+                {props.subscription.usage.currentPeriod.visaChecks.used} / {
+                  props.subscription.usage.currentPeriod.visaChecks.limit === 'unlimited'
+                    ? 'Unlimited'
+                    : props.subscription.usage.currentPeriod.visaChecks.limit
+                }
+              </span>
+            </div>
+            <div class="w-full bg-background/50 h-2.5 rounded-full overflow-hidden">
+              <div className={`h-full w-${props.subscription.usage.currentPeriod.visaChecks.percent} bg-primary-500 rounded-full`} />
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex">
+              <span class="font-medium">Documents Generated</span>
+              <span class="ml-auto font-medium">
+                {props.subscription.usage.currentPeriod.documents.used} / {
+                  props.subscription.usage.currentPeriod.documents.limit === 'unlimited'
+                    ? 'Unlimited'
+                    : props.subscription.usage.currentPeriod.documents.limit
+                }
+              </span>
+            </div>
+            <div class="w-full bg-background/50 h-2.5 rounded-full overflow-hidden">
+              <div className={`h-full w-${props.subscription.usage.currentPeriod.documents.percent} bg-primary-500 rounded-full`} />
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex">
+              <span class="font-medium">API Calls</span>
+              <span class="ml-auto font-medium">
+                {props.subscription.usage.currentPeriod.apiCalls.used} / {
+                  props.subscription.usage.currentPeriod.apiCalls.limit
+                }
+              </span>
+            </div>
+            <div class="w-full bg-background/50 h-2.5 rounded-full overflow-hidden">
+              <div className={`h-full w-${props.subscription.usage.currentPeriod.apiCalls.percent} bg-primary-500 rounded-full`} />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Billing Information */}
+      <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+        <h3 class="text-lg font-semibold mb-4">
+          Billing Information
+        </h3>
+        <div class="space-y-4">
+          <div class="flex justify-between mb-3">
+            <span class="text-sm text-foreground/50">Next Payment</span>
+            <span class="text-sm font-medium text-foreground">
+              {props.subscription.billing.nextPayment}
+            </span>
+          </div>
+          <div class="flex justify-between mb-3">
+            <span class="text-sm text-foreground/50">Payment Method</span>
+            <span class="text-sm font-medium text-foreground">
+              {props.subscription.billing.paymentMethod}
+            </span>
+          </div>
+          <div class="mt-4 space-y-3">
+            <p class="font-medium text-foreground mb-2">
+              Payment History
+            </p>
+            <div class="space-y-2">
+              {props.subscription.billing.paymentHistory.map((payment, index) => (
+                <div key={index} class="flex justify-between text-sm">
+                  <span>{new Date(payment.date).toLocaleDateString()}</span>
+                  <span class={`${payment.status === 'success' ? 'text-success-600' : 'text-danger-600'}`}>
+                    ${payment.amount.toFixed(2)} {payment.status === 'success' ? '✓' : '✗'}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div class="mt-4">
+          <a href="/billing" class="w-full bg-transparent border border-primary-500 text-primary-500 px-4 py-2 rounded-md hover:bg-primary-50 transition-colors">
+            Update Payment Method
+          </a>
+          <a href="/billing/history" class="w-full mt-2 bg-transparent border border-primary-500 text-primary-500 px-4 py-2 rounded-md hover:bg-primary-50 transition-colors">
+            View Full History
+          </div>
+        </div>
+      </div>
+
+      {/* Actions */}
+      <div class="bg-background/50 rounded-lg p-6 border border-border/50">
+        <h3 class="text-lg font-semibold mb-4">
+          Manage Subscription
+        </h3>
+        <div class="space-y-4">
+          <button
+            class="w-full bg-primary-500 text-primary-foreground py-3 rounded-lg font-medium hover:bg-primary-600 transition-colors mb-3"
+          >
+            Update Plan
+          </button>
+
+          <div class="space-y-3">
+            <p class="text-sm text-foreground/50 mb-2">
+              Cancel Subscription
+            </p>
+            <button
+              class="w-full bg-transparent border border-danger-500 text-danger-500 py-2 rounded-md hover:bg-danger-50 transition-colors"
+            >
+              Cancel Subscription
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </Container>
+</AccountLayout>

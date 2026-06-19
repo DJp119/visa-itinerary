@@ -1,0 +1,104 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { TravelOpenStatus } from '@/lib/schemas/travel';
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureTravelRepository } from '@/data/repositories/travelRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: {
+      country: path.params.country,
+      filter: path.params.filter  // This would be things like 'region', 'border', 'air', 'sea', etc.
+    }
+  }));
+}
+
+// Get country and filtered travel open status data
+export async function get(props: { params: { country: string; filter: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const travelRepo = new FixtureTravelRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        travelOpenStatus: null,
+        filter: props.params.filter
+      }
+    };
+  }
+
+  // Get all travel open status entries for this country
+  const allStatuses = await travelRepo.getTravelOpenStatusByCountryId(countryData.id);
+
+  // Filter by the specified filter parameter
+  const filteredStatus = allStatuses.find(status =>
+    (status.title && status.title.toLowerCase().includes(props.params.filter.toLowerCase())) ||
+    (status.description && status.description.toLowerCase().includes(props.params.filter.toLowerCase())) ||
+    (status.content && status.content.toLowerCase().includes(props.params.filter.toLowerCase()))
+  );
+
+  return {
+    props: {
+      country: countryData,
+      travelOpenStatus: filteredStatus,
+      filter: props.params.filter
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle={`Travel Status for ${props.country?.name} - ${props.filter}`}
+  pageDescription=`Filtered travel openness status for ${props.country?.name} related to ${props.filter}.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country?.name || 'Country', href: `/${props.country?.slug}` },
+        { label: 'Travel Guide', href: `/${props.country?.slug}/travel` },
+        { label: 'Travel Status', href: `/${props.country?.slug}/travel/open` },
+        { label: props.filter, href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Travel Status for ${props.country?.name} - ${props.filter}`}
+      description={`Travel openness status related to ${props.filter} for ${props.country?.name}`}
+    >
+      {props.travelOpenStatus && (
+        <>
+          <p class="text-lg text-foreground/60 mb-8">
+            {props.travelOpenStatus.description}
+          </p>
+
+          {props.travelOpenStatus.content && (
+            <div class="prose prose-lg max-w-none">
+              {props.travelOpenStatus.content}
+            </div>
+          )}
+        </>
+      )}
+
+      {!props.travelOpenStatus && (
+        <div class="text-center py-8">
+          <p class="text-lg text-foreground/50">
+            No travel status information found for {props.country?.name} related to "{props.filter}".
+          </p>
+        </div>
+      )}
+    </SectionHeader>
+  </Container>
+</SiteLayout>

@@ -1,0 +1,85 @@
+---
+const {
+  type,
+  title,
+  description,
+  image,
+  path,
+  ...props
+} = Astro.props;
+
+import { generateMetaTags } from '@/lib/seo/meta';
+import { generateJsonLd, jsonLdGenerators } from '@/lib/seo/jsonLd';
+---
+
+{/* Meta Tags */}
+<style>{generateMetaTags({
+  title: title || 'Visa Itinerary',
+  description: description,
+  image: image,
+  path: Astro.url.pathname,
+  siteName: 'Visa Itinerary'
+})}</style>
+
+{/* JSON-LD Structured Data */}
+{props.type && (
+  <>
+    {generateJsonLd({
+      type: props.type,
+      ...props
+    })}
+
+    {/* Additional common JSON-LD based on type */}
+    {props.type === 'WebSite' && (
+      {generateJsonLd(jsonLdGenerators.website({
+        name: title || 'Visa Itinerary',
+        url: `${getSiteUrl()}`,
+        description: description,
+        publisherName: 'Visa Itinerary',
+        publisherLogo: image
+      }))}
+    )}
+
+    {props.type === 'BreadcrumbList' && (
+      {generateJsonLd(jsonLdGenerators.breadcrumbList({
+        items: props.items || []
+      }))}
+    )}
+
+    {props.type === 'FAQPage' && (
+      {generateJsonLd(jsonLdGenerators.faqPage({
+        question: props.question || '',
+        answer: props.answer || ''
+      }))}
+    )}
+
+    {props.type === 'ItemList' && (
+      {generateJsonLd(jsonLdGenerators.itemList({
+        name: props.name || '',
+        itemListElement: props.items || []
+      }))}
+    )}
+
+    {props.type === 'Article' && (
+      {generateJsonLd(jsonLdGenerators.article({
+        headline: title || '',
+        description: description,
+        image: image,
+        authorName: props.authorName,
+        publisherName: 'Visa Itinerary',
+        publisherLogo: image,
+        datePublished: props.datePublished,
+        dateModified: props.dateModified
+      }))}
+    )}
+  </>
+)}
+
+<style>
+  /* Helper function to get site URL */
+  function getSiteUrl() {
+    return typeof window !== 'undefined'
+      ? window.location.origin
+      : 'https://visaitinerary.example.com';
+  }
+</style>

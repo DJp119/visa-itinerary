@@ -1,0 +1,85 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import DetailHero from '@/components/detail/DetailHero.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { VisaRequirement } from '@/lib/schemas/visa';
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureVisaRepository } from '@/data/repositories/visaRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  return getCountryStaticPaths().map(path => ({
+    params: { country: path.params.country }
+  }));
+}
+
+// Get country and visa data
+export async function get(props: { params: { country: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const visaRepo = new FixtureVisaRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        visaRequirements: [],
+        groupedByRequirement: {}
+      }
+    };
+  }
+
+  // Get visa requirements for this country (as destination)
+  const visaRequirements = await visaRepo.getVisaRequirementsByDestination(countryData.id);
+
+  // Group by requirement type for display
+  const groupedByRequirement = visaRequirements.reduce((acc, req) => {
+    if (!acc[req.requirement]) {
+      acc[req.requirement] = [];
+    }
+    acc[req.requirement].push(req);
+    return acc;
+  }, {} as Record<string, VisaRequirement[]>);
+
+  return {
+    props: {
+      country: countryData,
+      visaRequirements: visaRequirements,
+      groupedByRequirement: groupedByRequirement
+    }
+  };
+}
+---
+
+<SiteLayout
+  pageTitle={`Visa Information for ${props.country.name}`}
+  pageDescription=`Complete visa information for ${props.country.name} including requirements, fees, and application process.`
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country.name, href: `/${props.country.slug}` },
+        { label: 'Visa Information', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Visa Information for ${props.country.name}`}
+      description={`Complete guide to visa requirements, fees, and application process for visiting ${props.country.name}`}
+    >
+      <p class="text-lg text-foreground/60 mb-8">
+        Find all the information you need about visiting {props.country.name}, including visa requirements based on your passport,
+        application procedures, fees, and important conditions.
+      </p>
+    </SectionHeader>
+  </Container>
+</SiteLayout>
