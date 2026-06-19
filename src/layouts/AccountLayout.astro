@@ -1,8 +1,7 @@
 ---
 // Layout for authenticated user pages
 import { ToastProvider } from '@/components/islands/ToastProvider';
-import { useAuth } from '@/lib/auth';
-import { useState } from 'react';
+import AuthenticatedHeader from '@/components/islands/AuthenticatedHeader';
 ---
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
@@ -16,10 +15,8 @@ import { useState } from 'react';
     <meta name="theme-color" content="#ffffff" />
   </head>
   <body class="min-h-flex flex-col">
-    <ToastProvider>
-      <ClientOnly>
-        <AuthenticatedHeader />
-      </ClientOnly>
+    <ToastProvider client:load>
+      <AuthenticatedHeader currentPath={Astro.url.pathname} client:load />
       <main class="flex-grow pt-[4rem]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <slot />
@@ -61,53 +58,3 @@ import { useState } from 'react';
     </ToastProvider>
   </body>
 </html>
-
----
-// AuthenticatedHeader React component
-import { useAuth } from '@/lib/auth';
-import { useNavigate } from '@tanstack/react-router';
-
-function AuthenticatedHeader() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    await logout();
-    navigate('/');
-  };
-
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
-        <div className="flex-shrink-0 flex items-center space-x-3">
-          <a href="/" className="text-primary-500 hover:text-primary-600 font-bold text-xl">
-            Visa Itinerary
-          </a>
-        </div>
-        <nav className="hidden md:flex space-x-4">
-          <a href="/user/profile" className={`${user && Astro.url.pathname === '/user/profile' ? 'text-foreground' : 'text-foreground/70'} hover:text-foreground transition-colors px-3 py-1 rounded text-sm`}>
-            Profile
-          </a>
-          <a href="/user/subscription" className={`${user && Astro.url.pathname === '/user/subscription' ? 'text-foreground' : 'text-foreground/70'} hover:text-foreground transition-colors px-3 py-1 rounded text-sm`}>
-            Subscription
-          </a>
-          <a href="/dashboard" className={`${user && Astro.url.pathname.startsWith('/dashboard') ? 'text-foreground' : 'text-foreground/70'} hover:text-foreground transition-colors px-3 py-1 rounded text-sm`}>
-            Dashboard
-          </a>
-        </nav>
-        <div className="flex-shrink-0 flex items-center space-x-3">
-          {user && (
-            <div className="relative">
-              <button
-                onClick={handleLogout}
-                className="btn-outline px-4 py-2 rounded-md text-sm"
-              >
-                Logout
-              </div>
-          )}
-        </div>
-      </div>
-    </header>
-  );
-}
-</AuthenticatedHeader>
