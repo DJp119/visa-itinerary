@@ -86,7 +86,7 @@ export default function OpenMetricsChart({
           <div className="bg-background/80 rounded-lg p-4">
             <h3 className="text-lg font-semibold mb-4 text-foreground">
               Usage Overview
-            </div>
+            </h3>
             <div className="h-[{height}px] relative">
               {/* Bar Chart */}
               <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-border/50" />

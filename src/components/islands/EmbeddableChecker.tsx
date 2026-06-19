@@ -171,7 +171,7 @@ export default function EmbeddableChecker() {
         <div className="p-4 text-center">
           <h3 className="mb-4 font-bold" style={{ color: 'var(--widget-text)' }}>
             Visa Checker Widget
-          </div>
+          </h3>
           <p className="mb-4" style={{ color: 'var(--widget-muted)' }}>
             Please select your origin and destination countries to check visa requirements
           </p>
@@ -256,8 +256,8 @@ export default function EmbeddableChecker() {
       <div className="visa-widget-error" style={getWidgetStyles()}>
         <div className="p-6 text-center">
           <div className="mb-4">
-            </div>
-          </p className="mb-3 text-lg font-medium" style={{ color: 'var(--widget-text)' }}>
+          </div>
+          <p className="mb-3 text-lg font-medium" style={{ color: 'var(--widget-text)' }}>
             Unable to Check Requirements
           </p>
           <p className="mb-4" style={{ color: 'var(--widget-muted)' }}>
@@ -287,11 +287,11 @@ export default function EmbeddableChecker() {
         <div className="p-6">
           <div className="flex justify-between items-start mb-4">
             <div className="flex-shrink-0 h-8 w-8 flex items-center justify-center bg-primary-500/20 rounded-lg">
-              </div>
+            </div>
             <div>
               <h3 className="mb-1 font-semibold" style={{ color: 'var(--widget-text)' }}>
                 Visa Check Result
-              </div>
+              </h3>
               <p className="text-sm" style={{ color: 'var(--widget-muted)' }}>
                 {origin} → {destination}
               </p>
@@ -353,7 +353,7 @@ export default function EmbeddableChecker() {
       <div className="p-6 text-center">
         <h3 className="mb-3 font-bold" style={{ color: 'var(--widget-text)' }}>
           Visa Checker Widget
-        </div>
+        </h3>
         <p className="text-sm" style={{ color: 'var(--widget-muted)' }}>
           Configure the widget to check visa requirements
         </p>

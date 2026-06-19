@@ -10,58 +10,65 @@ const {
 
 import { generateMetaTags } from '@/lib/seo/meta';
 import { generateJsonLd, jsonLdGenerators } from '@/lib/seo/jsonLd';
+
+// Helper function to get site URL
+function getSiteUrl() {
+  return typeof window !== 'undefined'
+    ? window.location.origin
+    : 'https://visaitinerary.example.com';
+}
 ---
 
 {/* Meta Tags */}
-<style>{generateMetaTags({
+<Fragment set:html={generateMetaTags({
   title: title || 'Visa Itinerary',
   description: description,
   image: image,
   path: Astro.url.pathname,
   siteName: 'Visa Itinerary'
-})}</style>
+})} />
 
 {/* JSON-LD Structured Data */}
 {props.type && (
   <>
-    {generateJsonLd({
+    <Fragment set:html={generateJsonLd({
       type: props.type,
       ...props
-    })}
+    })} />
 
     {/* Additional common JSON-LD based on type */}
     {props.type === 'WebSite' && (
-      {generateJsonLd(jsonLdGenerators.website({
+      <Fragment set:html={generateJsonLd(jsonLdGenerators.website({
         name: title || 'Visa Itinerary',
         url: `${getSiteUrl()}`,
         description: description,
         publisherName: 'Visa Itinerary',
         publisherLogo: image
-      }))}
+      }))} />
     )}
 
     {props.type === 'BreadcrumbList' && (
-      {generateJsonLd(jsonLdGenerators.breadcrumbList({
+      <Fragment set:html={generateJsonLd(jsonLdGenerators.breadcrumbList({
         items: props.items || []
-      }))}
+      }))} />
     )}
 
     {props.type === 'FAQPage' && (
-      {generateJsonLd(jsonLdGenerators.faqPage({
+      <Fragment set:html={generateJsonLd(jsonLdGenerators.faqPage({
         question: props.question || '',
         answer: props.answer || ''
-      }))}
+      }))} />
     )}
 
     {props.type === 'ItemList' && (
-      {generateJsonLd(jsonLdGenerators.itemList({
+      <Fragment set:html={generateJsonLd(jsonLdGenerators.itemList({
         name: props.name || '',
         itemListElement: props.items || []
-      }))}
+      }))} />
     )}
 
     {props.type === 'Article' && (
-      {generateJsonLd(jsonLdGenerators.article({
+      <Fragment set:html={generateJsonLd(jsonLdGenerators.article({
         headline: title || '',
         description: description,
         image: image,
@@ -70,16 +77,7 @@ import { generateJsonLd, jsonLdGenerators } from '@/lib/seo/jsonLd';
         publisherLogo: image,
         datePublished: props.datePublished,
         dateModified: props.dateModified
-      }))}
+      }))} />
     )}
   </>
 )}
-
-<style>
-  /* Helper function to get site URL */
-  function getSiteUrl() {
-    return typeof window !== 'undefined'
-      ? window.location.origin
-      : 'https://visaitinerary.example.com';
-  }
-</style>

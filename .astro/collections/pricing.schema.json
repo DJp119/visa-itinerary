@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number"
+    },
+    "interval": {
+      "type": "string",
+      "enum": [
+        "monthly",
+        "yearly",
+        "lifetime"
+      ]
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "popular": {
+      "default": false,
+      "type": "boolean"
+    },
+    "recommended": {
+      "default": false,
+      "type": "boolean"
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name",
+    "description",
+    "price",
+    "interval",
+    "features"
+  ]
+}

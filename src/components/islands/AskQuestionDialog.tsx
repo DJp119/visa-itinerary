@@ -129,8 +129,10 @@ export default function AskQuestionDialog({
                           Submitting...
                         </>
                       ) : (
-                        <MessageCircle className="mr-2 h-4 w-4" />
-                        {buttonText}
+                        <>
+                          <MessageCircle className="mr-2 h-4 w-4" />
+                          {buttonText}
+                        </>
                       )}
                     </button>
                   </div>

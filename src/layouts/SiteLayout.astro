@@ -1,8 +1,10 @@
 ---
 const { pathname } = Astro.url;
 import SeoJsonLd from '@/components/astro/SeoJsonLd.astro';
-import ToastProvider from '@/components/islands/ToastProvider';
-import AuthProvider from '@/lib/auth';
+import { ToastProvider } from '@/components/islands/ToastProvider';
+import { AuthProvider } from '@/lib/auth';
+import SiteHeader from '@/components/shell/SiteHeader.astro';
+import SiteFooter from '@/components/shell/SiteFooter.astro';
 ---
 <!DOCTYPE html>
 <html lang="en" data-theme="light">

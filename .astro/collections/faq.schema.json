@@ -9,7 +9,6 @@
       "type": "string"
     },
     "category": {
-      "default": "general",
       "type": "string"
     },
     "order": {
@@ -22,6 +21,7 @@
   },
   "required": [
     "question",
-    "answer"
+    "answer",
+    "category"
   ]
 }

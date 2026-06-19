@@ -5,24 +5,24 @@
     "name": {
       "type": "string"
     },
-    "shortName": {
+    "countryId": {
       "type": "string"
     },
-    "iso2": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 2
-    },
-    "iso3": {
-      "type": "string",
-      "minLength": 3,
-      "maxLength": 3
-    },
-    "region": {
+    "city": {
       "type": "string"
     },
-    "population": {
-      "type": "number"
+    "address": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "website": {
+      "type": "string",
+      "format": "uri"
     },
     "verifiedAt": {
       "type": "string",
@@ -33,29 +33,15 @@
       "type": "string",
       "format": "uri"
     },
-    "ranking": {
-      "type": "number"
-    },
-    "visaFreeCount": {
-      "type": "number"
-    },
-    "visaOnArrivalCount": {
-      "type": "number"
-    },
-    "eVisaCount": {
-      "type": "number"
-    },
     "$schema": {
       "type": "string"
     }
   },
   "required": [
     "name",
-    "shortName",
-    "iso2",
-    "iso3",
-    "region",
-    "population",
+    "countryId",
+    "city",
+    "address",
     "verifiedAt"
   ]
 }

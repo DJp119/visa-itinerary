@@ -5,32 +5,77 @@
     "name": {
       "type": "string"
     },
-    "code": {
+    "shortName": {
+      "type": "string"
+    },
+    "iso2": {
       "type": "string",
       "minLength": 2,
       "maxLength": 2
     },
-    "continent": {
+    "iso3": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3
+    },
+    "region": {
+      "type": "string"
+    },
+    "subregion": {
+      "type": "string"
+    },
+    "capital": {
       "type": "string"
     },
     "population": {
       "type": "number"
     },
-    "capital": {
+    "area": {
+      "type": "number"
+    },
+    "currencyCode": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 3
+    },
+    "currencyName": {
       "type": "string"
     },
-    "currency": {
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "coordinates": {
+      "type": "object",
+      "properties": {
+        "lat": {
+          "type": "number"
+        },
+        "lng": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "lat",
+        "lng"
+      ]
+    },
+    "heroImage": {
       "type": "string"
     },
-    "language": {
+    "passportImage": {
       "type": "string"
     },
-    "timezone": {
-      "type": "string"
+    "verifiedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
     },
-    "noindex": {
-      "default": false,
-      "type": "boolean"
+    "sourceAttribution": {
+      "type": "string",
+      "format": "uri"
     },
     "$schema": {
       "type": "string"
@@ -38,7 +83,16 @@
   },
   "required": [
     "name",
-    "code",
-    "continent"
+    "shortName",
+    "iso2",
+    "iso3",
+    "region",
+    "capital",
+    "population",
+    "currencyCode",
+    "currencyName",
+    "languages",
+    "coordinates",
+    "verifiedAt"
   ]
 }

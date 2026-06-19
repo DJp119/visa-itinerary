@@ -131,11 +131,35 @@ declare module 'astro:content' {
 		: any;
 
 	type DataEntryMap = {
-		"country": Record<string, {
+		"blog": Record<string, {
+  id: string;
+  body?: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"country": Record<string, {
   id: string;
   body?: string;
   collection: "country";
   data: InferEntrySchema<"country">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"customs": Record<string, {
+  id: string;
+  body?: string;
+  collection: "customs";
+  data: InferEntrySchema<"customs">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"embassy": Record<string, {
+  id: string;
+  body?: string;
+  collection: "embassy";
+  data: InferEntrySchema<"embassy">;
   rendered?: RenderedContent;
   filePath?: string;
 }>;
@@ -147,6 +171,22 @@ declare module 'astro:content' {
   rendered?: RenderedContent;
   filePath?: string;
 }>;
+"health": Record<string, {
+  id: string;
+  body?: string;
+  collection: "health";
+  data: InferEntrySchema<"health">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"legal": Record<string, {
+  id: string;
+  body?: string;
+  collection: "legal";
+  data: InferEntrySchema<"legal">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
 "passport": Record<string, {
   id: string;
   body?: string;
@@ -155,11 +195,19 @@ declare module 'astro:content' {
   rendered?: RenderedContent;
   filePath?: string;
 }>;
-"testimonial": Record<string, {
+"pricing": Record<string, {
   id: string;
   body?: string;
-  collection: "testimonial";
-  data: InferEntrySchema<"testimonial">;
+  collection: "pricing";
+  data: InferEntrySchema<"pricing">;
+  rendered?: RenderedContent;
+  filePath?: string;
+}>;
+"travel": Record<string, {
+  id: string;
+  body?: string;
+  collection: "travel";
+  data: InferEntrySchema<"travel">;
   rendered?: RenderedContent;
   filePath?: string;
 }>;

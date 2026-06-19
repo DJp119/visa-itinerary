@@ -12,27 +12,29 @@
     "verify": "astro check && astro build && vitest run && playwright test"
   },
   "dependencies": {
-    "astro": "^6.4.6",
+    "@astrojs/cloudflare": "^13.0.0",
+    "@astrojs/mdx": "^5.0.0",
     "@astrojs/react": "^4.1.6",
     "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/cloudflare": "^12.0.0",
-    "@astrojs/mdx": "^4.0.4",
+    "astro": "^6.4.6",
+    "autoprefixer": "^10.4.20",
+    "framer-motion": "^12.4.3",
     "headroom-ai": "^0.22.4",
+    "lucide-react": "^0.475.0",
+    "radix-ui": "^1.1.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwindcss": "^3.4.17",
-    "autoprefixer": "^10.4.20",
-    "framer-motion": "^12.4.3",
-    "lucide-react": "^0.475.0",
-    "radix-ui": "^1.1.2",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
-    "vitest": "^3.0.5",
-    "playwright": "^1.49.1",
     "@vitest/ui": "^3.0.5",
-    "typescript": "^5.7.2"
+    "playwright": "^1.49.1",
+    "typescript": "^5.7.2",
+    "vite": "^4.5.0",
+    "vitest": "^3.0.5"
   }
 }

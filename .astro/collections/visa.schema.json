@@ -2,50 +2,69 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
-    "country": {
+    "destinationCountryId": {
       "type": "string"
     },
-    "countryCode": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 2
+    "passportCountryId": {
+      "type": "string"
     },
-    "visaType": {
+    "kind": {
       "type": "string",
       "enum": [
         "tourist",
         "transit",
-        "digital-nomad",
-        "business",
-        "student"
+        "digital-nomad"
       ]
     },
-    "title": {
-      "type": "string"
+    "requirement": {
+      "type": "string",
+      "enum": [
+        "visa-free",
+        "visa-on-arrival",
+        "evisa",
+        "sticker-visa",
+        "visa-refused",
+        "not-available"
+      ]
     },
-    "description": {
-      "type": "string"
+    "stayDays": {
+      "type": "number"
     },
-    "lastUpdated": {
-      "type": "string"
-    },
-    "maxStay": {
-      "type": "string"
-    },
-    "validity": {
-      "type": "string"
-    },
-    "processingTime": {
-      "type": "string"
+    "processingDays": {
+      "type": "object",
+      "properties": {
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "min",
+        "max"
+      ]
     },
     "fee": {
-      "type": "string"
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number"
+        },
+        "currencyCode": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3
+        }
+      },
+      "required": [
+        "amount",
+        "currencyCode"
+      ]
     },
-    "documents": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+    "applicationUrl": {
+      "type": "string",
+      "format": "uri"
     },
     "conditions": {
       "type": "array",
@@ -53,37 +72,46 @@
         "type": "string"
       }
     },
-    "applicationUrl": {
-      "type": "string",
-      "format": "uri"
-    },
-    "officialUrl": {
-      "type": "string",
-      "format": "uri"
-    },
-    "travelAdvice": {
-      "type": "string"
-    },
-    "nearbyCountries": {
+    "documents": {
       "type": "array",
       "items": {
         "type": "string"
       }
     },
-    "noindex": {
-      "default": false,
-      "type": "boolean"
+    "sourceUrls": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      }
+    },
+    "verifiedAt": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "official",
+        "partner",
+        "community-review",
+        "unknown"
+      ]
     },
     "$schema": {
       "type": "string"
     }
   },
   "required": [
-    "country",
-    "countryCode",
-    "visaType",
-    "title",
-    "description",
-    "lastUpdated"
+    "destinationCountryId",
+    "passportCountryId",
+    "kind",
+    "requirement",
+    "conditions",
+    "documents",
+    "sourceUrls",
+    "verifiedAt",
+    "confidence"
   ]
 }

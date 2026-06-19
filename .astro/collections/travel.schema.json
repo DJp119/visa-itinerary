@@ -2,27 +2,27 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
   "properties": {
-    "name": {
+    "title": {
       "type": "string"
     },
-    "shortName": {
+    "description": {
       "type": "string"
     },
-    "iso2": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 2
-    },
-    "iso3": {
-      "type": "string",
-      "minLength": 3,
-      "maxLength": 3
+    "content": {
+      "type": "string"
     },
     "region": {
       "type": "string"
     },
-    "population": {
-      "type": "number"
+    "safetyStatus": {
+      "type": "string",
+      "enum": [
+        "normal",
+        "stay-alert",
+        "reconsider",
+        "avoid-travel",
+        "unknown"
+      ]
     },
     "verifiedAt": {
       "type": "string",
@@ -33,29 +33,16 @@
       "type": "string",
       "format": "uri"
     },
-    "ranking": {
-      "type": "number"
-    },
-    "visaFreeCount": {
-      "type": "number"
-    },
-    "visaOnArrivalCount": {
-      "type": "number"
-    },
-    "eVisaCount": {
-      "type": "number"
-    },
     "$schema": {
       "type": "string"
     }
   },
   "required": [
-    "name",
-    "shortName",
-    "iso2",
-    "iso3",
+    "title",
+    "description",
+    "content",
     "region",
-    "population",
+    "safetyStatus",
     "verifiedAt"
   ]
 }

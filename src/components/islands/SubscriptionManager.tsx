@@ -120,7 +120,7 @@ export default function SubscriptionManager({
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4 text-foreground">
           Change Plan
-        </div>
+        </h3>
         <div className="space-y-4">
           {availablePlans.map(plan => (
             <div
@@ -166,7 +166,7 @@ export default function SubscriptionManager({
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4 text-foreground">
           Billing Cycle
-        </div>
+        </h3>
         <div className="border border-border/50 rounded-lg p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -189,14 +189,14 @@ export default function SubscriptionManager({
                     : 'bg-background/50 text-foreground'
                 }`}
               >
-                <span className="translate-x-0 ${
+                <span className={`translate-x-0 ${
                   currentInterval === 'monthly' ? 'translate-x-0' : 'translate-x-full'
-                }">
+                }`}>
                   Monthly
                 </span>
-                <span className="translate-x-0 ${
+                <span className={`translate-x-0 ${
                   currentInterval === 'yearly' ? 'translate-x-0' : 'translate-x-full'
-                }">
+                }`}>
                   Yearly
                 </span>
               </button>
@@ -270,7 +270,7 @@ export default function SubscriptionManager({
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-4 text-foreground">
           Notifications
-        </div>
+        </h3>
         <div className="border border-border/50 rounded-lg p-4 space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
