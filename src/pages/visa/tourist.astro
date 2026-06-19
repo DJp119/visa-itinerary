@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 }
 
 // Mock data for the tourist visa directory
-export async function get() {
+async function getData() {
   // TODO: Fetch actual country data from repository
   // For now, return mock data
   const countries = [
@@ -64,6 +64,9 @@ export async function get() {
     }
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <SiteLayout

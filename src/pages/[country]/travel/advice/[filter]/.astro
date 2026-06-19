@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 }
 
 // Get country and travel guide data
-export async function get(props: { params: { country: string; filter?: string } }) {
+async function getData(props: { params: { country: string; filter?: string } }) {
   // TODO: Fetch actual country and travel guide data from repositories
   // For now, return mock data
   const countryData: Country = {
@@ -57,6 +57,9 @@ export async function get(props: { params: { country: string; filter?: string } 
     }
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <SiteLayout

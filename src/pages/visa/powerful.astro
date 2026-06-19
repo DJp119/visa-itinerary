@@ -5,7 +5,7 @@ import SectionHeader from '@/components/astro/SectionHeader.astro';
 import DirectoryCard from '@/components/directory/DirectoryCard.astro';
 
 // Mock data for powerful visas
-export async function get() {
+async function getData() {
   const powerfulVisas = [
     {
       id: 'usa',
@@ -80,6 +80,9 @@ export async function get() {
     }
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <SiteLayout

@@ -18,7 +18,7 @@ export async function getStaticPaths() {
 }
 
 // Get country and visa data
-export async function get(props: { params: { country: string } }) {
+async function getData(props: { params: { country: string } }) {
   const countryRepo = new FixtureCountryRepository();
   const visaRepo = new FixtureVisaRepository();
 
@@ -50,6 +50,9 @@ export async function get(props: { params: { country: string } }) {
     }
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <SiteLayout

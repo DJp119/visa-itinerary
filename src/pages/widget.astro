@@ -5,11 +5,14 @@ import SectionHeader from '@/components/astro/SectionHeader.astro';
 import WidgetViewer from '@/components/widget/WidgetViewer.astro';
 
 // Mock data for widget page
-export async function get() {
+async function getData() {
   return {
     props: {}
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <SiteLayout

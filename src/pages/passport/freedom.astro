@@ -5,7 +5,7 @@ import SectionHeader from '@/components/astro/SectionHeader.astro';
 import MetricStrip from '@/components/home/MetricStrip.astro';
 
 // Mock data for passport freedom
-export async function get() {
+async function getData() {
   const freedomMetrics = [
     { label: 'Visa Free Destinations', value: '143', icon: '🌐' },
     { label: 'Visa on Arrival', value: '44', icon: '📝' },
@@ -29,6 +29,9 @@ export async function get() {
     }
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <SiteLayout

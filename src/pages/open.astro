@@ -6,7 +6,7 @@ import MetricStrip from '@/components/home/MetricStrip.astro';
 import { FixtureMetricsRepository } from '@/data/repositories/metricsRepository';
 
 // Fetch open metrics data
-export async function get() {
+async function getData() {
   const metricsRepo = new FixtureMetricsRepository();
   const metrics = await metricsRepo.getOpenMetrics();
 
@@ -16,6 +16,9 @@ export async function get() {
     }
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <SiteLayout

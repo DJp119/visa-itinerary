@@ -5,7 +5,7 @@ import SectionHeader from '@/components/astro/SectionHeader.astro';
 import DirectoryCard from '@/components/directory/DirectoryCard.astro';
 import { FixturePassportRepository } from '@/data/repositories/passportRepository';
 
-export async function get() {
+async function getData() {
   const passportRepo = new FixturePassportRepository();
   const passports = await passportRepo.getAllPassports();
 
@@ -30,6 +30,9 @@ export async function get() {
     }
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <SiteLayout

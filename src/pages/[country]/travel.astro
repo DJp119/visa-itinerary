@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 }
 
 // Get country and travel guide data
-export async function get(props: { params: { country: string } }) {
+async function getData(props: { params: { country: string } }) {
   const countryRepo = new FixtureCountryRepository();
   const travelRepo = new FixtureTravelRepository();
 
@@ -46,6 +46,9 @@ export async function get(props: { params: { country: string } }) {
     }
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <SiteLayout

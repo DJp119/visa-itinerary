@@ -2,11 +2,14 @@
 import SiteLayout from '@/layouts/SiteLayout.astro';
 import RegisterForm from '@/components/islands/RegisterForm';
 
-export async function get() {
+async function getData() {
   return {
     props: {}
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 <SiteLayout
   pageTitle="Create Account - Visa Itinerary"

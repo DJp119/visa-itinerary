@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 }
 
 // Get country and filtered customs data
-export async function get(props: { params: { country: string; filter: string } }) {
+async function getData(props: { params: { country: string; filter: string } }) {
   const countryRepo = new FixtureCountryRepository();
   const customsRepo = new FixtureCustomsRepository();
 
@@ -67,6 +67,9 @@ export async function get(props: { params: { country: string; filter: string } }
     }
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <SiteLayout

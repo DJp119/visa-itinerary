@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 // Get country data from repository
-export async function get(props: { params: { country: string } }) {
+async function getData(props: { params: { country: string } }) {
   const countryRepo = new FixtureCountryRepository();
   const countryData = await countryRepo.getCountryBySlug(props.params.country);
 
@@ -35,6 +35,9 @@ export async function get(props: { params: { country: string } }) {
     }
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <SiteLayout

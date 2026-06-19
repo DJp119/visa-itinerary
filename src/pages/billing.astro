@@ -3,11 +3,14 @@ import AccountLayout from '@/layouts/AccountLayout.astro';
 import Container from '@/components/astro/Container.astro';
 import SectionHeader from '@/components/astro/SectionHeader.astro';
 
-export async function get() {
+async function getData() {
   return {
     props: {}
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <AccountLayout

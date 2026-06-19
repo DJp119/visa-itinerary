@@ -4,7 +4,7 @@ import Container from '@/components/astro/Container.astro';
 import SectionHeader from '@/components/astro/SectionHeader.astro';
 
 // Mock user profile data
-export async function get() {
+async function getData() {
   const userProfile = {
     id: 'user_123',
     firstName: 'John',
@@ -31,6 +31,9 @@ export async function get() {
     }
   };
 }
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
 ---
 
 <AccountLayout
