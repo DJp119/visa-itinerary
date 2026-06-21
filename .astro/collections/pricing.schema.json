@@ -1,47 +1,53 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "type": "object",
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "description": {
-      "type": "string"
-    },
-    "price": {
-      "type": "number"
-    },
-    "interval": {
-      "type": "string",
-      "enum": [
-        "monthly",
-        "yearly",
-        "lifetime"
-      ]
-    },
-    "features": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "popular": {
-      "default": false,
-      "type": "boolean"
-    },
-    "recommended": {
-      "default": false,
-      "type": "boolean"
-    },
-    "$schema": {
-      "type": "string"
+  "$ref": "#/definitions/pricing",
+  "definitions": {
+    "pricing": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "interval": {
+          "type": "string",
+          "enum": [
+            "monthly",
+            "yearly",
+            "lifetime"
+          ]
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "popular": {
+          "type": "boolean",
+          "default": false
+        },
+        "recommended": {
+          "type": "boolean",
+          "default": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "description",
+        "price",
+        "interval",
+        "features"
+      ],
+      "additionalProperties": false
     }
   },
-  "required": [
-    "name",
-    "description",
-    "price",
-    "interval",
-    "features"
-  ]
+  "$schema": "http://json-schema.org/draft-07/schema#"
 }

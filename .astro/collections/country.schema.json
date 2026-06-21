@@ -1,98 +1,104 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "type": "object",
-  "properties": {
-    "name": {
-      "type": "string"
-    },
-    "shortName": {
-      "type": "string"
-    },
-    "iso2": {
-      "type": "string",
-      "minLength": 2,
-      "maxLength": 2
-    },
-    "iso3": {
-      "type": "string",
-      "minLength": 3,
-      "maxLength": 3
-    },
-    "region": {
-      "type": "string"
-    },
-    "subregion": {
-      "type": "string"
-    },
-    "capital": {
-      "type": "string"
-    },
-    "population": {
-      "type": "number"
-    },
-    "area": {
-      "type": "number"
-    },
-    "currencyCode": {
-      "type": "string",
-      "minLength": 3,
-      "maxLength": 3
-    },
-    "currencyName": {
-      "type": "string"
-    },
-    "languages": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "coordinates": {
+  "$ref": "#/definitions/country",
+  "definitions": {
+    "country": {
       "type": "object",
       "properties": {
-        "lat": {
+        "name": {
+          "type": "string"
+        },
+        "shortName": {
+          "type": "string"
+        },
+        "iso2": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 2
+        },
+        "iso3": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3
+        },
+        "region": {
+          "type": "string"
+        },
+        "subregion": {
+          "type": "string"
+        },
+        "capital": {
+          "type": "string"
+        },
+        "population": {
           "type": "number"
         },
-        "lng": {
+        "area": {
           "type": "number"
+        },
+        "currencyCode": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3
+        },
+        "currencyName": {
+          "type": "string"
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "coordinates": {
+          "type": "object",
+          "properties": {
+            "lat": {
+              "type": "number"
+            },
+            "lng": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "lat",
+            "lng"
+          ],
+          "additionalProperties": false
+        },
+        "heroImage": {
+          "type": "string"
+        },
+        "passportImage": {
+          "type": "string"
+        },
+        "verifiedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sourceAttribution": {
+          "type": "string",
+          "format": "uri"
+        },
+        "$schema": {
+          "type": "string"
         }
       },
       "required": [
-        "lat",
-        "lng"
-      ]
-    },
-    "heroImage": {
-      "type": "string"
-    },
-    "passportImage": {
-      "type": "string"
-    },
-    "verifiedAt": {
-      "type": "string",
-      "format": "date-time",
-      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
-    },
-    "sourceAttribution": {
-      "type": "string",
-      "format": "uri"
-    },
-    "$schema": {
-      "type": "string"
+        "name",
+        "shortName",
+        "iso2",
+        "iso3",
+        "region",
+        "capital",
+        "population",
+        "currencyCode",
+        "currencyName",
+        "languages",
+        "coordinates",
+        "verifiedAt"
+      ],
+      "additionalProperties": false
     }
   },
-  "required": [
-    "name",
-    "shortName",
-    "iso2",
-    "iso3",
-    "region",
-    "capital",
-    "population",
-    "currencyCode",
-    "currencyName",
-    "languages",
-    "coordinates",
-    "verifiedAt"
-  ]
+  "$schema": "http://json-schema.org/draft-07/schema#"
 }

@@ -1,27 +1,33 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "type": "object",
-  "properties": {
-    "question": {
-      "type": "string"
-    },
-    "answer": {
-      "type": "string"
-    },
-    "category": {
-      "type": "string"
-    },
-    "order": {
-      "default": 0,
-      "type": "number"
-    },
-    "$schema": {
-      "type": "string"
+  "$ref": "#/definitions/faq",
+  "definitions": {
+    "faq": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "order": {
+          "type": "number",
+          "default": 0
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "question",
+        "answer",
+        "category"
+      ],
+      "additionalProperties": false
     }
   },
-  "required": [
-    "question",
-    "answer",
-    "category"
-  ]
+  "$schema": "http://json-schema.org/draft-07/schema#"
 }
