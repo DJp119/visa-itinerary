@@ -7,6 +7,6 @@ content: |-
 
   By using our website, you consent to the practices described in this policy.
 category: privacy
-version: 1.0
+version: "1.0"
 lastUpdated: 2026-06-17
 ---
