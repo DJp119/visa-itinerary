@@ -1,4 +1,6 @@
 import type { VisaRequirement, VisaPolicy } from '@/lib/schemas';
+import visaRequirements from '@/data/fixtures/visa-requirements.json';
+import visaPolicies from '@/data/fixtures/visa-policies.json';
 
 export interface VisaRepository {
   getVisaRequirements(passportCountryId: string, destinationCountryId: string, kind?: 'tourist' | 'transit' | 'digital-nomad'): Promise<VisaRequirement[]>;
@@ -15,30 +17,8 @@ export interface VisaRepository {
 
 // Fixture-based implementation
 export class FixtureVisaRepository implements VisaRepository {
-  private visaRequirements: VisaRequirement[] = [];
-  private visaPolicies: VisaPolicy[] = [];
-
-  constructor() {
-    // Load fixtures
-    this.loadFixtures();
-  }
-
-  private async loadFixtures() {
-    try {
-      // Load visa requirements
-      const requirementsResponse = await fetch('/data/fixtures/visa-requirements.json');
-      this.visaRequirements = await requirementsResponse.json();
-
-      // Load visa policies
-      const policiesResponse = await fetch('/data/fixtures/visa-policies.json');
-      this.visaPolicies = await policiesResponse.json();
-    } catch (error) {
-      console.error('Failed to load visa fixtures:', error);
-      // Fallback to empty arrays
-      this.visaRequirements = [];
-      this.visaPolicies = [];
-    }
-  }
+  private visaRequirements: VisaRequirement[] = visaRequirements as VisaRequirement[];
+  private visaPolicies: VisaPolicy[] = visaPolicies as VisaPolicy[];
 
   async getVisaRequirements(passportCountryId: string, destinationCountryId: string, kind?: 'tourist' | 'transit' | 'digital-nomad'): Promise<VisaRequirement[]> {
     let filtered = this.visaRequirements.filter(req =>

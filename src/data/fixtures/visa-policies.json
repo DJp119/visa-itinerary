@@ -254,7 +254,7 @@
         ]
       }
     ],
-    "visaFreeCountries": ["us"], // US citizens don't need visa for visits under 6 months
+    "visaFreeCountries": ["us"],
     "visaOnArrivalCountries": [],
     "electronicTravelAuthorization": true,
     "verifiedAt": "2026-06-15T00:00:00Z",

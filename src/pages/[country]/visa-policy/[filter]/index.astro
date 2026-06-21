@@ -1,0 +1,100 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Container from '@/components/astro/Container.astro';
+import SectionHeader from '@/components/astro/SectionHeader.astro';
+import Breadcrumbs from '@/components/astro/Breadcrumbs.astro';
+import { getCountryStaticPaths } from '@/lib/urls/routes';
+import type { Country } from '@/lib/schemas/country';
+import type { VisaPolicy } from '@/lib/schemas/visa';
+import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
+import { FixtureVisaRepository } from '@/data/repositories/visaRepository';
+
+// This is a static version - in a real implementation we would fetch from repository
+export async function getStaticPaths() {
+  const filters = ['tourist', 'transit', 'business', 'work'];
+  return getCountryStaticPaths().flatMap(path =>
+    filters.map(filter => ({
+      params: {
+        country: path.params.country,
+        filter
+      }
+    }))
+  );
+}
+
+// Get country and visa policy data
+async function getData(props: { params: { country: string; filter?: string } }) {
+  const countryRepo = new FixtureCountryRepository();
+  const visaRepo = new FixtureVisaRepository();
+
+  // Get country data
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
+
+  // Handle case where country is not found
+  if (!countryData) {
+    return {
+      props: {
+        country: null,
+        visaPolicy: null,
+        filter: props.params.filter
+      }
+    };
+  }
+
+  // Get visa policy for this country
+  const visaPolicy = await visaRepo.getVisaPolicyByCountryId(countryData.id);
+
+  return {
+    props: {
+      country: countryData,
+      visaPolicy: visaPolicy,
+      filter: props.params.filter
+    }
+  };
+}
+
+const _data = await getData({ params: Astro.params });
+const props = _data?.props || {};
+---
+
+<SiteLayout
+  pageTitle={`Visa Policy for ${props.country?.name}${props.params.filter ? ` - ${props.params.filter}` : ''}`}
+  pageDescription={`Complete visa policy and immigration regulations for ${props.country?.name}${props.params.filter ? ` (${props.params.filter})` : ''}.`}
+>
+  <Container>
+    <Breadcrumbs
+      items={[
+        { label: 'Home', href: '/' },
+        { label: 'Countries', href: '/#' },
+        { label: props.country?.name || 'Country', href: `/${props.country?.slug}` },
+        { label: 'Visa Policy', href: `/${props.country?.slug}/visa-policy` },
+        { label: props.params.filter ? `Filter: ${props.params.filter}` : 'All', href: '' }
+      ]}
+    />
+
+    <SectionHeader
+      title={`Visa Policy for ${props.country?.name}${props.params.filter ? ` - ${props.params.filter}` : ''}`}
+      description={`Complete visa policy and immigration regulations for ${props.country?.name}${props.params.filter ? ` (${props.params.filter})` : ''}`}
+    >
+      {props.visaPolicy ? (
+        <>
+          <p class="text-lg text-foreground/60 mb-8">
+            Explore the complete visa policy and immigration regulations for {props.country?.name}{props.params.filter ? `, filtered by ${props.params.filter}` : ''}. Understand the rules that govern international travel to and from this country.
+          </p>
+
+          {props.visaPolicy.content && (
+            <div class="prose prose-lg max-w-none">
+              {props.visaPolicy.content}
+            </div>
+          )}
+        </>
+      ) : (
+        <div class="text-center py-8">
+          <p class="text-lg text-foreground/50">
+            No visa policy information found for {props.country?.name}{props.params.filter ? ` (${props.params.filter})` : ''}.
+          </p>
+        </div>
+      )}
+    </SectionHeader>
+  </Container>
+</SiteLayout>

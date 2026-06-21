@@ -11,12 +11,15 @@ import { FixtureHealthRepository } from '@/data/repositories/healthRepository';
 
 // This is a static version - in a real implementation we would fetch from repository
 export async function getStaticPaths() {
-  return getCountryStaticPaths().map(path => ({
-    params: {
-      country: path.params.country,
-      filter: path.params.filter  // This would be things like 'vaccinations', 'emergency', 'facilities', etc.
-    }
-  }));
+  const filters = ['vaccinations', 'emergency', 'facilities'];
+  return getCountryStaticPaths().flatMap(path =>
+    filters.map(filter => ({
+      params: {
+        country: path.params.country,
+        filter
+      }
+    }))
+  );
 }
 
 // Get country and filtered health advice data
@@ -39,21 +42,21 @@ async function getData(props: { params: { country: string; filter: string } }) {
   }
 
   // Get all health advice for this country
-  const allHealthGuides = await healthRepo.getHealthAdviceByCountryId(countryData.id);
+  const healthGuide = await healthRepo.getHealthAdviceByCountryId(countryData.id);
 
   // Filter by the specified filter parameter
   // In a real implementation, this would filter by actual properties like topic, region, etc.
   // For now, we'll do a simple text match on title or description
-  const filteredHealthGuides = allHealthGuides.filter(guide =>
-    guide.title.toLowerCase().includes(props.params.filter.toLowerCase()) ||
-    guide.description.toLowerCase().includes(props.params.filter.toLowerCase()) ||
-    guide.content.toLowerCase().includes(props.params.filter.toLowerCase())
+  const match = healthGuide && (
+    healthGuide.title.toLowerCase().includes(props.params.filter.toLowerCase()) ||
+    healthGuide.description.toLowerCase().includes(props.params.filter.toLowerCase()) ||
+    healthGuide.content.toLowerCase().includes(props.params.filter.toLowerCase())
   );
 
   return {
     props: {
       country: countryData,
-      healthGuide: filteredHealthGuides.length > 0 ? filteredHealthGuides[0] : null,
+      healthGuide: match ? healthGuide : null,
       filter: props.params.filter
     }
   };
@@ -65,7 +68,7 @@ const props = _data?.props || {};
 
 <SiteLayout
   pageTitle={`Health Guide for ${props.country?.name} - ${props.filter}`}
-  pageDescription=`Filtered health information for ${props.country?.name} related to ${props.filter}.`
+  pageDescription={`Filtered health information for ${props.country?.name} related to ${props.filter}.`}
 >
   <Container>
     <Breadcrumbs
@@ -82,7 +85,7 @@ const props = _data?.props || {};
       title={`Health Guide for ${props.country?.name} - ${props.filter}`}
       description={`Health information related to ${props.filter} for ${props.country?.name}`}
     >
-      {props.healthGuide && (
+      {props.healthGuide ? (
         <>
           <p class="text-lg text-foreground/60 mb-8">
             Health information related to "{props.filter}".

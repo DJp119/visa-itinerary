@@ -1,4 +1,5 @@
 import type { HealthAdvice } from '@/lib/schemas';
+import healthAdvice from '@/data/fixtures/health-advice.json';
 
 export interface HealthRepository {
   getHealthAdviceByCountryId(countryId: string): Promise<HealthAdvice | null>;
@@ -9,23 +10,7 @@ export interface HealthRepository {
 
 // Fixture-based implementation
 export class FixtureHealthRepository implements HealthRepository {
-  private healthAdvice: HealthAdvice[] = [];
-
-  constructor() {
-    // Load fixtures
-    this.loadFixtures();
-  }
-
-  private async loadFixtures() {
-    try {
-      const response = await fetch('/data/fixtures/health-advice.json');
-      this.healthAdvice = await response.json();
-    } catch (error) {
-      console.error('Failed to load health advice fixtures:', error);
-      // Fallback to empty array
-      this.healthAdvice = [];
-    }
-  }
+  private healthAdvice: HealthAdvice[] = healthAdvice as HealthAdvice[];
 
   async getHealthAdviceByCountryId(countryId: string): Promise<HealthAdvice | null> {
     return this.healthAdvice.find(advice => advice.countryId === countryId) || null;

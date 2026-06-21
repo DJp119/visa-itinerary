@@ -1,4 +1,5 @@
 import type { Country } from '@/lib/schemas';
+import countries from '@/data/fixtures/countries.json';
 
 export interface CountryRepository {
   getAllCountries(): Promise<Country[]>;
@@ -10,23 +11,11 @@ export interface CountryRepository {
 
 // Fixture-based implementation
 export class FixtureCountryRepository implements CountryRepository {
-  private countries: Country[] = [];
+  private countries: Country[] = countries as Country[];
 
-  constructor() {
-    // Load fixtures
-    this.loadFixtures();
-  }
 
-  private async loadFixtures() {
-    try {
-      const response = await fetch('/data/fixtures/countries.json');
-      this.countries = await response.json();
-    } catch (error) {
-      console.error('Failed to load country fixtures:', error);
-      // Fallback to empty array
-      this.countries = [];
-    }
-  }
+
+  
 
   async getAllCountries(): Promise<Country[]> {
     return [...this.countries];

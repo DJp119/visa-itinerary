@@ -1,4 +1,5 @@
 import type { CustomsRegulation } from '@/lib/schemas';
+import customsRegulations from '@/data/fixtures/customs-regulations.json';
 
 export interface CustomsRepository {
   getCustomsRegulationByCountryId(countryId: string): Promise<CustomsRegulation | null>;
@@ -9,23 +10,11 @@ export interface CustomsRepository {
 
 // Fixture-based implementation
 export class FixtureCustomsRepository implements CustomsRepository {
-  private customsRegulations: CustomsRegulation[] = [];
+  private customsRegulations: CustomsRegulation[] = customsRegulations as CustomsRegulation[];
 
-  constructor() {
-    // Load fixtures
-    this.loadFixtures();
-  }
 
-  private async loadFixtures() {
-    try {
-      const response = await fetch('/data/fixtures/customs-regulations.json');
-      this.customsRegulations = await response.json();
-    } catch (error) {
-      console.error('Failed to load customs regulation fixtures:', error);
-      // Fallback to empty array
-      this.customsRegulations = [];
-    }
-  }
+
+  
 
   async getCustomsRegulationByCountryId(countryId: string): Promise<CustomsRegulation | null> {
     return this.customsRegulations.find(regulation => regulation.countryId === countryId) || null;

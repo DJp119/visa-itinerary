@@ -24,7 +24,7 @@ async function getData(props: { params: { country: string } }) {
   const embassyRepo = new FixtureEmbassyRepository();
 
   // Get country data
-  const countryData = await countryRepo.getCountryBySlug(params.params.country);
+  const countryData = await countryRepo.getCountryBySlug(props.params.country);
 
   // Handle case where country is not found
   if (!countryData) {

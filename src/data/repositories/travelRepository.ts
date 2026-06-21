@@ -1,4 +1,5 @@
-import type { TravelContent, TravelAdvice, TravelAlert, TravelOpenStatus, TravelRestriction } from '@/lib/schemas';
+import type { TravelContent, TravelAdvice, TravelAlert, TravelOpenStatus, TravelRestriction, TravelGuide } from '@/lib/schemas';
+import travelContent from '@/data/fixtures/travel-content.json';
 
 export interface TravelRepository {
   getTravelGuideByCountryId(countryId: string): Promise<TravelGuide | null>;
@@ -15,23 +16,11 @@ export interface TravelRepository {
 
 // Fixture-based implementation
 export class FixtureTravelRepository implements TravelRepository {
-  private travelContent: TravelContent[] = [];
+  private travelContent: TravelContent[] = travelContent as TravelContent[];
 
-  constructor() {
-    // Load fixtures
-    this.loadFixtures();
-  }
 
-  private async loadFixtures() {
-    try {
-      const response = await fetch('/data/fixtures/travel-content.json');
-      this.travelContent = await response.json();
-    } catch (error) {
-      console.error('Failed to load travel content fixtures:', error);
-      // Fallback to empty array
-      this.travelContent = [];
-    }
-  }
+
+  
 
   async getTravelGuideByCountryId(countryId: string): Promise<TravelGuide | null> {
     const content = await this.getTravelContentByCountryIdAndType(countryId, 'guide');

@@ -1,4 +1,5 @@
 import type { Passport } from '@/lib/schemas';
+import passports from '@/data/fixtures/passports.json';
 
 export interface PassportRepository {
   getAllPassports(): Promise<Passport[]>;
@@ -10,23 +11,11 @@ export interface PassportRepository {
 
 // Fixture-based implementation
 export class FixturePassportRepository implements PassportRepository {
-  private passports: Passport[] = [];
+  private passports: Passport[] = passports as Passport[];
 
-  constructor() {
-    // Load fixtures
-    this.loadFixtures();
-  }
 
-  private async loadFixtures() {
-    try {
-      const response = await fetch('/data/fixtures/passports.json');
-      this.passports = await response.json();
-    } catch (error) {
-      console.error('Failed to load passport fixtures:', error);
-      // Fallback to empty array
-      this.passports = [];
-    }
-  }
+
+  
 
   async getAllPassports(): Promise<Passport[]> {
     return [...this.passports];

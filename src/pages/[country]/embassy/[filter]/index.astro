@@ -8,16 +8,19 @@ import { getCountryStaticPaths } from '@/lib/urls/routes';
 import type { Country } from '@/lib/schemas/country';
 import type { EmbassyInfo } from '@/lib/schemas/embassy';
 import { FixtureCountryRepository } from '@/data/repositories/countryRepository';
-import { FixtureEmbassyRepository } from '@/data/repositories/embassyRepository;
+import { FixtureEmbassyRepository } from '@/data/repositories/embassyRepository';
 
 // This is a static version - in a real implementation we would fetch from repository
 export async function getStaticPaths() {
-  return getCountryStaticPaths().map(path => ({
-    params: {
-      country: path.params.country,
-      filter: path.params.filter  // This would be things like 'visa', 'passport', 'consular', etc.
-    }
-  }));
+  const filters = ['visa', 'passport', 'consular'];
+  return getCountryStaticPaths().flatMap(path =>
+    filters.map(filter => ({
+      params: {
+        country: path.params.country,
+        filter
+      }
+    }))
+  );
 }
 
 // Get country and filtered embassy data
@@ -48,7 +51,7 @@ async function getData(props: { params: { country: string; filter: string } }) {
   const filteredEmbassies = allEmbassies.filter(embassy =>
     embassy.name.toLowerCase().includes(props.params.filter.toLowerCase()) ||
     embassy.location.toLowerCase().includes(props.params.filter.toLowerCase()) ||
-    embassy.address.toLowerCase().includes(params.params.filter.toLowerCase())
+    embassy.address.toLowerCase().includes(props.params.filter.toLowerCase())
   );
 
   return {
@@ -66,7 +69,7 @@ const props = _data?.props || {};
 
 <SiteLayout
   pageTitle={`Embassies for ${props.country?.name} - ${props.filter}`}
-  pageDescription=`Filtered embassy information for ${props.country?.name} related to ${props.filter}.`
+  pageDescription={`Filtered embassy information for ${props.country?.name} related to ${props.filter}.`}
 >
   <Container>
     <Breadcrumbs

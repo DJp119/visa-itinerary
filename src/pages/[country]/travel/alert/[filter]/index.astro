@@ -11,12 +11,15 @@ import { FixtureTravelRepository } from '@/data/repositories/travelRepository';
 
 // This is a static version - in a real implementation we would fetch from repository
 export async function getStaticPaths() {
-  return getCountryStaticPaths().map(path => ({
-    params: {
-      country: path.params.country,
-      filter: path.params.filter  // This would be things like 'health', 'safety', 'weather', 'security', etc.
-    }
-  }));
+  const filters = ['health', 'safety', 'weather', 'security'];
+  return getCountryStaticPaths().flatMap(path =>
+    filters.map(filter => ({
+      params: {
+        country: path.params.country,
+        filter
+      }
+    }))
+  );
 }
 
 // Get country and filtered travel alert data
@@ -63,7 +66,7 @@ const props = _data?.props || {};
 
 <SiteLayout
   pageTitle={`Travel Alerts for ${props.country?.name} - ${props.filter}`}
-  pageDescription=`Filtered travel alerts for ${props.country?.name} related to ${props.filter}.`
+  pageDescription={`Filtered travel alerts for ${props.country?.name} related to ${props.filter}.`}
 >
   <Container>
     <Breadcrumbs
