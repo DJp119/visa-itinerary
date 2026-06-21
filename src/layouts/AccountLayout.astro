@@ -1,6 +1,7 @@
 ---
 // Layout for authenticated user pages
 import { ToastProvider } from '@/components/islands/ToastProvider';
+import { AuthProvider } from '@/lib/auth';
 import AuthenticatedHeader from '@/components/islands/AuthenticatedHeader';
 ---
 <!DOCTYPE html>
@@ -16,12 +17,13 @@ import AuthenticatedHeader from '@/components/islands/AuthenticatedHeader';
   </head>
   <body class="min-h-flex flex-col">
     <ToastProvider client:load>
-      <AuthenticatedHeader currentPath={Astro.url.pathname} client:load />
-      <main class="flex-grow pt-[4rem]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <slot />
-        </div>
-      </main>
+      <AuthProvider client:load>
+        <AuthenticatedHeader currentPath={Astro.url.pathname} client:load />
+        <main class="flex-grow pt-[4rem]">
+          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <slot />
+          </div>
+        </main>
 
       <footer class="mt-auto bg-footer text-primary-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
