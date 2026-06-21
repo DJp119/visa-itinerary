@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAuth } from '@/lib/auth';
+import { useAuth, AuthProvider } from '@/lib/auth';
 import { useState, useEffect } from 'react';
 
-export default function Dashboard() {
+function DashboardContent() {
   const { user } = useAuth();
   const [visaChecks, setVisaChecks] = useState([]);
   const [documents, setDocuments] = useState([]);
@@ -136,5 +136,13 @@ export default function Dashboard() {
         </>
       )}
     </div>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <AuthProvider>
+      <DashboardContent />
+    </AuthProvider>
   );
 }

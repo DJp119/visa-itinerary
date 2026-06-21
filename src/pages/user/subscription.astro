@@ -64,7 +64,7 @@ const props = _data?.props || {};
           </span>
         </div>
         <p class="text-sm text-foreground/50">
-          Next payment: July 15, 2026 • {$props.subscription.price.toFixed(2)}/{props.subscription.interval}
+          Next payment: July 15, 2026 • {props.subscription.plan.price.toFixed(2)}/{props.subscription.plan.interval}
         </p>
       </div>
     </section>
@@ -197,7 +197,7 @@ const props = _data?.props || {};
           </a>
           <a href="/billing/history" class="w-full mt-2 bg-transparent border border-primary-500 text-primary-500 px-4 py-2 rounded-md hover:bg-primary-50 transition-colors">
             View Full History
-          </div>
+          </a>
         </div>
       </div>
 

@@ -1,11 +1,10 @@
 ---
+import AccountLayout from '@/layouts/AccountLayout.astro';
 import Dashboard from '@/components/islands/Dashboard';
 ---
 <AccountLayout
   pageTitle="Dashboard"
   pageDescription="Your personalized Visa Itinerary dashboard"
 >
-  <ClientOnly>
-    <Dashboard />
-  </ClientOnly>
+  <Dashboard client:only="react" />
 </AccountLayout>

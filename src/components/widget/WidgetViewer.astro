@@ -1,5 +1,5 @@
 ---
-// Interactive widget viewer using React island
+import WidgetBuilder from '@/components/islands/WidgetBuilder';
 ---
 <div class="widget-container border border-border/50 rounded-lg p-4 max-w-2xl mx-auto bg-background">
   <div class="widget-header flex items-center justify-between mb-4 pb-2 border-b border-border/50">
@@ -13,9 +13,7 @@
     </div>
   </div>
 
-  <ClientOnly>
-    <WidgetBuilder />
-  </ClientOnly>
+  <WidgetBuilder client:only="react" />
 </div>
 
 <style>

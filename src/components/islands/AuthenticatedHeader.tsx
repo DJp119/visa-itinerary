@@ -1,11 +1,11 @@
 import React from 'react';
-import { useAuth } from '@/lib/auth';
+import { useAuth, AuthProvider } from '@/lib/auth';
 
 interface Props {
   currentPath: string;
 }
 
-export default function AuthenticatedHeader({ currentPath }: Props) {
+function AuthenticatedHeaderContent({ currentPath }: Props) {
   const { user, logout } = useAuth();
 
   const handleLogout = async () => {
@@ -46,5 +46,13 @@ export default function AuthenticatedHeader({ currentPath }: Props) {
         </div>
       </div>
     </header>
+  );
+}
+
+export default function AuthenticatedHeader(props: Props) {
+  return (
+    <AuthProvider>
+      <AuthenticatedHeaderContent {...props} />
+    </AuthProvider>
   );
 }

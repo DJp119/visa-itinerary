@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useAuth } from '@/lib/auth';
+import { useAuth, AuthProvider } from '@/lib/auth';
 
-export default function RegisterForm() {
+function RegisterFormContent() {
   const { register } = useAuth();
   const [formData, setFormData] = useState({
     firstName: '',
@@ -211,5 +211,13 @@ export default function RegisterForm() {
         </div>
       </div>
     </section>
+  );
+}
+
+export default function RegisterForm() {
+  return (
+    <AuthProvider>
+      <RegisterFormContent />
+    </AuthProvider>
   );
 }

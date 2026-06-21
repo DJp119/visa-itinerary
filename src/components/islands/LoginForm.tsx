@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useAuth } from '@/lib/auth';
+import { useAuth, AuthProvider } from '@/lib/auth';
 
-export default function LoginForm() {
+function LoginFormContent() {
   const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -125,5 +125,13 @@ export default function LoginForm() {
         </div>
       </div>
     </section>
+  );
+}
+
+export default function LoginForm() {
+  return (
+    <AuthProvider>
+      <LoginFormContent />
+    </AuthProvider>
   );
 }
