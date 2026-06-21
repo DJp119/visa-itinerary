@@ -91,7 +91,7 @@ const props = _data?.props || {};
       title={`Customs Guide for ${props.country?.name} - ${props.filter}`}
       description={`Customs information related to ${props.filter} for ${props.country?.name}`}
     >
-      {props.customsGuide && (
+      {props.customsGuide ? (
         <>
           <p class="text-lg text-foreground/60 mb-8">
             Customs information related to "{props.filter}".
