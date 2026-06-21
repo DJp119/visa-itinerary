@@ -141,6 +141,9 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+
+# Wrangler local cache/state (machine-specific paths — never commit)
+.wrangler/
 /.agent/.agents/plugins
 /.agent/.agents/plugins
 /.agent/.agents/skills/agent-introspection-debugging/agents
