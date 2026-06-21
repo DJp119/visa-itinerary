@@ -42,19 +42,19 @@ async function getData(props: { params: { country: string; filter: string } }) {
   }
 
   // Get all travel open status entries for this country
-  const allStatuses = await travelRepo.getTravelOpenStatusByCountryId(countryData.id);
+  const travelOpenStatus = await travelRepo.getTravelOpenStatusByCountryId(countryData.id);
 
   // Filter by the specified filter parameter
-  const filteredStatus = allStatuses.find(status =>
-    (status.title && status.title.toLowerCase().includes(props.params.filter.toLowerCase())) ||
-    (status.description && status.description.toLowerCase().includes(props.params.filter.toLowerCase())) ||
-    (status.content && status.content.toLowerCase().includes(props.params.filter.toLowerCase()))
+  const match = travelOpenStatus && (
+    (travelOpenStatus.title && travelOpenStatus.title.toLowerCase().includes(props.params.filter.toLowerCase())) ||
+    (travelOpenStatus.description && travelOpenStatus.description.toLowerCase().includes(props.params.filter.toLowerCase())) ||
+    (travelOpenStatus.content && travelOpenStatus.content.toLowerCase().includes(props.params.filter.toLowerCase()))
   );
 
   return {
     props: {
       country: countryData,
-      travelOpenStatus: filteredStatus,
+      travelOpenStatus: match ? travelOpenStatus : null,
       filter: props.params.filter
     }
   };

@@ -58,8 +58,8 @@ const props = _data?.props || {};
 ---
 
 <SiteLayout
-  pageTitle={`Visa Policy for ${props.country?.name}${props.params.filter ? ` - ${props.params.filter}` : ''}`}
-  pageDescription={`Complete visa policy and immigration regulations for ${props.country?.name}${props.params.filter ? ` (${props.params.filter})` : ''}.`}
+  pageTitle={`Visa Policy for ${props.country?.name}${props.filter ? ` - ${props.filter}` : ''}`}
+  pageDescription={`Complete visa policy and immigration regulations for ${props.country?.name}${props.filter ? ` (${props.filter})` : ''}.`}
 >
   <Container>
     <Breadcrumbs
@@ -68,18 +68,18 @@ const props = _data?.props || {};
         { label: 'Countries', href: '/#' },
         { label: props.country?.name || 'Country', href: `/${props.country?.slug}` },
         { label: 'Visa Policy', href: `/${props.country?.slug}/visa-policy` },
-        { label: props.params.filter ? `Filter: ${props.params.filter}` : 'All', href: '' }
+        { label: props.filter ? `Filter: ${props.filter}` : 'All', href: '' }
       ]}
     />
 
     <SectionHeader
-      title={`Visa Policy for ${props.country?.name}${props.params.filter ? ` - ${props.params.filter}` : ''}`}
-      description={`Complete visa policy and immigration regulations for ${props.country?.name}${props.params.filter ? ` (${props.params.filter})` : ''}`}
+      title={`Visa Policy for ${props.country?.name}${props.filter ? ` - ${props.filter}` : ''}`}
+      description={`Complete visa policy and immigration regulations for ${props.country?.name}${props.filter ? ` (${props.filter})` : ''}`}
     >
       {props.visaPolicy ? (
         <>
           <p class="text-lg text-foreground/60 mb-8">
-            Explore the complete visa policy and immigration regulations for {props.country?.name}{props.params.filter ? `, filtered by ${props.params.filter}` : ''}. Understand the rules that govern international travel to and from this country.
+            Explore the complete visa policy and immigration regulations for {props.country?.name}{props.filter ? `, filtered by ${props.filter}` : ''}. Understand the rules that govern international travel to and from this country.
           </p>
 
           {props.visaPolicy.content && (
@@ -91,7 +91,7 @@ const props = _data?.props || {};
       ) : (
         <div class="text-center py-8">
           <p class="text-lg text-foreground/50">
-            No visa policy information found for {props.country?.name}{props.params.filter ? ` (${props.params.filter})` : ''}.
+            No visa policy information found for {props.country?.name}{props.filter ? ` (${props.filter})` : ''}.
           </p>
         </div>
       )}

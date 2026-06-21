@@ -18,7 +18,7 @@ export async function getStaticPaths() {
   const paths: { params: { country: string } }[] = [];
 
   // For demo, we'll add countries that have exemptions
-  const countriesWithExemptions = ['jp', 'de', 'fr', 'sg'];  // Japan, Germany, France, Singapore
+  const countriesWithExemptions = ['jpn', 'deu', 'fra'];
 
   return countriesWithExemptions.map(country => ({
     params: { country }
