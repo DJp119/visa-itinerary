@@ -153,5 +153,6 @@ vite.config.ts.timestamp-*
 /.agent/.agents/skills/api-design
 /.agent/.agents/skills/article-writing
 .agent/.agents/skills/backend-patterns/agents/openai.yaml
+*.md
 *.yaml
 /.agent
